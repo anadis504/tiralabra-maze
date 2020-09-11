@@ -10,6 +10,6 @@ Wilson's algorithm generates labyrinths at random using loop-erased random walks
 
 Eller’s algorithm generates the maze one row at a time. Does not need memory space for the whole labyrinth – only one row at a time. Uses data structure set to keep track of different paths.
 
-I don’t yet have the exact vision of the actual implementation or the exact data structures needed. 
+I don’t yet have the exact vision of the actual implementation or the exact data structures needed. By next Friday the goal would be to have that cleared up/figured out and starting to implement some code so we can start looking at it and testing it.
 
 Time spent 7 h.
