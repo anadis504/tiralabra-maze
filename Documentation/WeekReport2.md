@@ -4,4 +4,6 @@ This week I have been looking at and reading about different maze generating alg
 Eller's algorithm 
 Wilson's algorithm
 
-Both algorithms create a perfect maze, having no loops or isolated areas and only one path from any point to another in the maze. In other words creating a spannig tree.
+Both algorithms create a perfect maze, having no loops or isolated areas and only one path from any point to another in the maze. In other words creating a spanning tree.
+
+Wilson's algorithm generates labyrinths at random using loop-erased random walks. By this all the possible mazes are generated with the same probability.
