@@ -29,8 +29,6 @@ Eller's algorithm creates a perfect maze with no loops or isolations. It generat
      * Output the final row
      
   (Source material: http://www.neocomputer.org/projects/eller.html)    
-
-  
   
 
 Eller's Algorithm:
@@ -42,3 +40,13 @@ What does it need?
 * It needs to of course follow the rules for wall and floor building and unioning two sets
 * It needs to keep track of the sets created during the current row and the sets allready existing. (Is that necessary? There can never be more sets in one row than the size of the row (1), some sets will be eliminated during set union (2). Will the sets be "reused" after elimination so there is a fixed amount of sets during the whole procedure? (Think about these. Is this at all relevant?)
 So once one row is finnished it is added to the maze and that row is used for the creation of the next one.
+* For the later solving of the maze, what is the best way for presentation of the maze. Is it again a graph, and if it is, what kind of...
+* Also there needs to be randomization function to randomly celect where to put up walls and floors. This is also needed in Wilson's algo.
+
+
+Wilson's Algorithm:
+Starts with a grid full of walls and then carves the paths through them. This too creates a perfect algorithm. A spanning tree. What does it need:
+* Needs to keep track of the random path it is walking and eliminate the loops it creates if it crosses its own path. (Keeping track of the current cells parent, maybe. Tracking down the path by the list of the parents. Oncearriving back to the same spot - deleting the loop and continue as if nothing happened)
+* How to represent the maze? Will a 3d table be good? (To store the cells connections, information of being visited or not)
+
+
