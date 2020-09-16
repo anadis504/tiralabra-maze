@@ -1,4 +1,4 @@
-#Weekly report 2
+# Weekly report 2
 
 This week I have been looking at and reading about different maze generating algorithms. I will pick two of them to implement and compare. The chosen algorithms are:
 * Eller's algorithm 
