@@ -2,6 +2,16 @@
 
 Code specification
 
+Eller's algorithm creates a perfect maze with no loops or isolations. It generates one row at a time. 
+1. Starting with only the outmost two walls and all cells not belonging to any set yet.
+2. It designates every cell not belonging to a set to its own (unique) set. 
+3. Then starting from left to right it takes every pair of adjacent cells and randomly decides whether to union two different sets into one or to put up a wall between them following these rules:
+  * If two adjacent cells belong to the same set there need to be a wall put between them.
+  * If the wall is not added then the two sets need to be joined into one.
+4. Randomly adding floors (bottom walls) from left to right. Rules:
+  * Every set has to have at least one opening down (one cell without a floor)
+  * If a set consists of only one cell there can be no floor, or if the cell is the last one of the set and the set still doesn't have an opening down it must have an opening (this follows the upper requirement)
+
 
 Eller's Algorithm:
 Creates one row at a time - therefore it is memory efficient. But has to somehow keep track of the maze it generates in order to solve it later.
