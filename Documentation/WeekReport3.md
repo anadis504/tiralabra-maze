@@ -30,7 +30,8 @@ Eller's algorithm creates a perfect maze with no loops or isolations. It generat
      
   (Source material: http://www.neocomputer.org/projects/eller.html)    
 
-
+  
+  
 
 Eller's Algorithm:
 Creates one row at a time - therefore it is memory efficient. But has to somehow keep track of the maze it generates in order to solve it later.
