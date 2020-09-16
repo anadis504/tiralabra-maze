@@ -12,14 +12,14 @@ Eller's algorithm creates a perfect maze with no loops or isolations. It generat
     * Every set has to have at least one opening down (one cell without a floor)
     * If a set consists of only one cell there can be no floor, or if the cell is the last one of the set and the set still doesn't have an opening down it must have an opening (this follows the upper requirement)
 5. Decide to keep adding rows, or stop and complete the maze (From here on down to the end of algoritm sepcification it is copy/paste from internet)
-  A) If you decide to add another row:
+  1. If you decide to add another row:
      Output the current row
      Remove all right walls
      Remove cells with a bottom-wall from their set
      Remove all bottom walls
      Continue from Step 2
 
-  B) If you decide to complete the maze
+  2. If you decide to complete the maze
      Add a bottom wall to every cell
      Moving from left to right:
      If the current cell and the cell to the right are members of a different set:
