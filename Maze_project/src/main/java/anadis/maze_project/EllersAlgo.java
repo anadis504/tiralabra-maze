@@ -19,7 +19,10 @@ public class EllersAlgo {
     private int cols;
     private Maze maze;
 
-    private int[][] setsTable;
+    private int[] setsTable;
+    private int[] setsMembers;
+    private int[] openBottoms;
+    private int[] seen;
     private boolean[] availables;
     private int free;
     
@@ -27,21 +30,24 @@ public class EllersAlgo {
         this.cols = cols+1;
         this.rows = rows;
         this.walls = new boolean[cols*2-1];
-        this.setsTable = new int[cols+1][4];
+        this.setsTable = new int[cols+1];
+        this.setsMembers = new int[cols+1];
+        this.openBottoms = new int[cols+1];
+        this.seen = new int[cols+1];
         this.currentRow = new int[cols];
         this.availables = new boolean[cols+1];
         this.free = 0;
         
         
         for (int i = 0; i < cols; i++) {
-            System.out.print(i + " i on nyt: ");
-            this.setsTable[i+1][0] = i+1;       //idea of setsTable is to keep track
-            this.setsTable[i+1][1] = 1;         //of what set another set has joined
-            this.setsTable[i+1][2] = 1;         //into. [i+1][0] tells set i+1 has joined
-            this.currentRow[i] = i+1;           //set that is found [i+1][0]. [*][1] =amount of members
+//            System.out.print(i + " i on nyt: ");
+            this.setsTable[i+1] = i+1;       //idea of setsTable is to keep track
+            this.setsMembers[i+1] = 1;       //of what set another set has joined
+                                            //into. [i+1][0] tells set i+1 has joined
+            this.currentRow[i] = i+1;       //set that is found [i+1][0]. [*][1] =amount of members
             this.walls[i] = false;
             this.walls[i*2] = false;
-            System.out.println(i);
+//            System.out.println(i);
         }
         
         this.maze = new Maze(cols, rows);
@@ -53,29 +59,55 @@ public class EllersAlgo {
     public void generateRow(int rownr) {
         if (rownr > rows) return;
         for (int i = 0; i < currentRow.length; i++) {
-            System.out.print(currentRow[i] + " ");
+            
             if (currentRow[i] == 0) {
-                int set = this.getAvailableSet();            //designating new set for cells without a set;
-                currentRow[i] = set;
-
+                int set = this.getAvailableSet();       //designating new set 
+                currentRow[i] = set;                    //for cells without set
+                setsMembers[set]++;
             }
+            System.out.print(currentRow[i] + " ");
         }
         System.out.println("");
         for (int i = 0; i < currentRow.length-1; i++) {
             if (currentRow[i] == currentRow[i+1]) {
-                walls[i*2+1] = true;            //adding right-walls between cells of same set
-            }
+                walls[i*2+1] = true;            //adding right-walls between 
+            }                                   //cells of same set
             else {
-                int r = random();               //randomly putting up walls between adjacent
-                if (r%2==0) {                   //cells of different sets
-                    walls[i*2+1] = true;
+                int r = random();               //randomly putting up walls 
+                if (r%2==0) {                   //between adjacent cells of 
+                    walls[i*2+1] = true;        //different sets
                 }
                 else {
                     joinSets(currentRow[i], currentRow[i+1], i);
                 }
             }
         }
+        addBottoms(rownr);
         completeRow(rownr);
+    }
+    
+    public void addBottoms(int rownr) {
+        for (int i = 0; i < this.setsTable.length; i++) {
+            this.openBottoms[i] = 0;       //Open bottoms amount
+            this.seen[i] = 0;           //Set-members seen so far
+        }
+        for (int i = 0; i < currentRow.length; i++) {
+            int set = this.currentRow[i];
+            this.seen[set]++;
+            if (this.openBottoms[set]==0) {
+                if (this.setsMembers[set] == this.seen[set]) {
+                    walls[i*2] = false;
+//                    System.out.println("seen so far: " + this.seen[set] + " ");
+                    continue;
+                }
+            }
+            int r = random();
+            if (r%2==0) {
+                walls[i*2] = true;
+                continue;
+            }
+            this.openBottoms[set]++;
+        }
     }
     
     public void joinSets(int first, int second, int index) {
@@ -83,7 +115,9 @@ public class EllersAlgo {
         for (int i = index; i < currentRow.length; i++) {
             if (currentRow[i] == second) {
                 currentRow[i] = first;
-                this.setsTable[first][1]++;
+                this.setsMembers[first]++;
+                this.setsMembers[second]--;
+//                System.out.println("OK! " + setsMembers[first] + setsMembers[second]);
             }
         }
         this.availables[second] = true;
@@ -105,13 +139,15 @@ public class EllersAlgo {
         for (int i = 0; i < walls.length; i++) {
             if (i%2!=0) walls[i]=false;         //removing all the right walls
             else if (i%2==0 && walls[i]) {
-                int id = currentRow[i/2+1];
-                this.setsTable[id][1]--;
-                currentRow[i/2+1] = 0;          //removing cells with a bottom-wall from their set
+                int id = currentRow[i/2];
+                this.setsMembers[id]--;
+                currentRow[i/2] = 0;          //removing cells with a bottom-wall from their set
                 walls[i] = false;               //removing the bottom-wall
+                System.out.println("Removed from id: " + i/2 + " setid: " + id);
             }
         }
         this.maze.printMaze();
+        
         generateRow(rownr);
        
     }
@@ -130,6 +166,7 @@ public class EllersAlgo {
                 return freeset;
             }
         }
+        System.out.println("this shouldn1 happen");
         return 0;
     }
 }
