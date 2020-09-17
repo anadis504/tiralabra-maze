@@ -10,5 +10,19 @@ package anadis.maze_project;
  * @author anadis
  */
 public class Cell {
+
+    private int x;
+    private int y;
+    private boolean visited;
+    private Cell parent;
+    
+    
+    public Cell(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.visited = false;
+    }
+    
+    
     
 }

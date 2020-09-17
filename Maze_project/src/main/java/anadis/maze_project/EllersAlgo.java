@@ -11,4 +11,6 @@ package anadis.maze_project;
  */
 public class EllersAlgo {
     
+    
+    
 }
