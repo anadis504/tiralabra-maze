@@ -12,7 +12,7 @@ package anadis.maze_project;
 public class Maze {
     private char[][] grid;
     
-    public Maze(int rows, int cols) {
+    public Maze(int cols, int rows) {
         this.grid = new char[rows+1][cols*2+1];
         System.out.println("y = " + grid[0].length + ", x = " + grid.length);
         for (int y = 0; y < grid[0].length; y++) {
@@ -38,5 +38,9 @@ public class Maze {
             }
             System.out.println("");
         }
+    }
+    
+    public void carve(int colnr, int rownr) {
+        this.grid[rownr][colnr] = ' ';
     }
 }
