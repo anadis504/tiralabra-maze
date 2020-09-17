@@ -18,8 +18,7 @@ public class EllersAlgo {
     private int rows;
     private int cols;
     private Maze maze;
-
-    private int[] setsTable;
+    private boolean lastRow;
     private int[] setsMembers;
     private int[] openBottoms;
     private int[] seen;
@@ -30,21 +29,17 @@ public class EllersAlgo {
         this.cols = cols+1;
         this.rows = rows;
         this.walls = new boolean[cols*2-1];
-        this.setsTable = new int[cols+1];
         this.setsMembers = new int[cols+1];
         this.openBottoms = new int[cols+1];
         this.seen = new int[cols+1];
         this.currentRow = new int[cols];
         this.availables = new boolean[cols+1];
         this.free = 0;
-        
+        this.lastRow = false;
         
         for (int i = 0; i < cols; i++) {
-//            System.out.print(i + " i on nyt: ");
-            this.setsTable[i+1] = i+1;       //idea of setsTable is to keep track
-            this.setsMembers[i+1] = 1;       //of what set another set has joined
-                                            //into. [i+1][0] tells set i+1 has joined
-            this.currentRow[i] = i+1;       //set that is found [i+1][0]. [*][1] =amount of members
+            this.setsMembers[i+1] = 1;       
+            this.currentRow[i] = i+1;       
             this.walls[i] = false;
             this.walls[i*2] = false;
 //            System.out.println(i);
@@ -58,6 +53,7 @@ public class EllersAlgo {
     */
     public void generateRow(int rownr) {
         if (rownr > rows) return;
+        if (rownr == rows) lastRow = true;
         for (int i = 0; i < currentRow.length; i++) {
             
             if (currentRow[i] == 0) {
@@ -67,7 +63,9 @@ public class EllersAlgo {
             }
             System.out.print(currentRow[i] + " ");
         }
+        
         System.out.println("");
+        if (lastRow) completeMaze();
         for (int i = 0; i < currentRow.length-1; i++) {
             if (currentRow[i] == currentRow[i+1]) {
                 walls[i*2+1] = true;            //adding right-walls between 
@@ -78,16 +76,31 @@ public class EllersAlgo {
                     walls[i*2+1] = true;        //different sets
                 }
                 else {
-                    joinSets(currentRow[i], currentRow[i+1], i);
+                    joinSets(currentRow[i], currentRow[i+1]);
                 }
             }
         }
-        addBottoms(rownr);
+        addBottoms();
         completeRow(rownr);
     }
     
-    public void addBottoms(int rownr) {
-        for (int i = 0; i < this.setsTable.length; i++) {
+    public void completeMaze() {
+        for (int i = 0; i < currentRow.length-1; i++) {
+            if (currentRow[i] == currentRow[i+1]) {
+                walls[i*2+1] = true;            //adding right-walls between 
+            }                                   //cells of same set
+            else {
+                joinSets(currentRow[i], currentRow[i+1]);
+            }
+        }
+        completeRow(rows);
+        this.maze.printMaze();
+        System.out.println("OK");
+        return;
+    }
+    
+    public void addBottoms() {
+        for (int i = 0; i < this.seen.length; i++) {
             this.openBottoms[i] = 0;       //Open bottoms amount
             this.seen[i] = 0;           //Set-members seen so far
         }
@@ -97,7 +110,6 @@ public class EllersAlgo {
             if (this.openBottoms[set]==0) {
                 if (this.setsMembers[set] == this.seen[set]) {
                     walls[i*2] = false;
-//                    System.out.println("seen so far: " + this.seen[set] + " ");
                     continue;
                 }
             }
@@ -110,14 +122,13 @@ public class EllersAlgo {
         }
     }
     
-    public void joinSets(int first, int second, int index) {
+    public void joinSets(int first, int second) {
         
-        for (int i = index; i < currentRow.length; i++) {
+        for (int i = 0; i < currentRow.length; i++) {
             if (currentRow[i] == second) {
                 currentRow[i] = first;
                 this.setsMembers[first]++;
                 this.setsMembers[second]--;
-//                System.out.println("OK! " + setsMembers[first] + setsMembers[second]);
             }
         }
         this.availables[second] = true;
@@ -132,6 +143,7 @@ public class EllersAlgo {
             else if (!walls[i] && rownr==rows && i%2==0) continue;
             else maze.carve(i+1,rownr);
         }
+        if (rownr==rows) return;
         this.prepareNextRow(rownr+1);
     }
     
@@ -142,8 +154,8 @@ public class EllersAlgo {
                 int id = currentRow[i/2];
                 this.setsMembers[id]--;
                 currentRow[i/2] = 0;          //removing cells with a bottom-wall from their set
-                walls[i] = false;               //removing the bottom-wall
-                System.out.println("Removed from id: " + i/2 + " setid: " + id);
+                walls[i] = false;             //removing the bottom-wall
+//                System.out.println("Removed from index: " + i/2 + " setid: " + id);
             }
         }
         this.maze.printMaze();
@@ -166,7 +178,7 @@ public class EllersAlgo {
                 return freeset;
             }
         }
-        System.out.println("this shouldn1 happen");
+//        System.out.println("this shouldn1 happen");
         return 0;
     }
 }

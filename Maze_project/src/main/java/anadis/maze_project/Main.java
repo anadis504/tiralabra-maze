@@ -16,7 +16,7 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        EllersAlgo ellers = new EllersAlgo(5,5);
+        EllersAlgo ellers = new EllersAlgo(26,18);
         ellers.generateRow(1);
 
     }
