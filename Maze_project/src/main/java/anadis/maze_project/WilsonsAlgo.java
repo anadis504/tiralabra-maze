@@ -12,8 +12,7 @@ package anadis.maze_project;
 public class WilsonsAlgo {
     
     private Maze maze;
-    private int rows;
-    private int cols;
+    private int rows, cols;
     private boolean[][] visited;
     private int x, y, unvisited;// L 0   R 1   Up 2  Down 3
     private int[][] direction = {{-1,0},{1,0},{0,-1},{0,1}};
@@ -25,17 +24,15 @@ public class WilsonsAlgo {
         this.unvisited = cols*rows;
         this.maze = new Maze(cols, rows);
         this.visited = new boolean[cols][rows];
-        this.paths = new int[cols][rows][4];
-    
+        this.paths = new int[cols][rows][3];
     }
-    
     
     public void randomWalk() {
         pickACell();
         paths[x][y][0] = 1;         //paths[][][0]=1 tells that path has been in 
         paths[x][y][1] = 0;         //this cell. [][][1] tells path arrived by
         paths[x][y][2] = 0;         //0=start, going: (1)L (2)R (3)Up (4)Down
-                                     //[][][2] where is goes from that cell
+                                    //[][][2] where it continues from that cell
         int nx = x;
         int ny = y;
         
@@ -57,7 +54,6 @@ public class WilsonsAlgo {
                     fromx = fromx+direction[paths[fromx][fromy][2]][0];
                     fromy = fromy+direction[paths[fromx][fromy][2]][1];
                 }
-                
             }
         }
         carvePath();
@@ -150,15 +146,14 @@ public class WilsonsAlgo {
         return 0;
     }
     
-    public void pickACell() {
-        boolean found = false;
-        while (!found) {
-            int rx = random()%cols;
+    public void pickACell() {       //this could definitely be optimized by 
+        while (true) {              //keeping unvisited cells in some array for
+            int rx = random()%cols; //their own
             int ry = random()%rows;
             if (!visited[rx][ry]) {
                 this.x = rx;
                 this.y = ry;
-                found = true;
+                break;
             }
         }
     }
