@@ -19,7 +19,7 @@ public class Main {
 //        EllersAlgo ellers = new EllersAlgo(26,18);
 //        ellers.generateRow(1);
         
-        WilsonsAlgo wa= new WilsonsAlgo(6,6);
+        WilsonsAlgo wa= new WilsonsAlgo(50,50);
         wa.start();
     }
     

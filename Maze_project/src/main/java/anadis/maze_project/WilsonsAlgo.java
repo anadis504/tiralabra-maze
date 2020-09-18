@@ -5,8 +5,6 @@
  */
 package anadis.maze_project;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author anadis
@@ -17,14 +15,14 @@ public class WilsonsAlgo {
     private int rows;
     private int cols;
     private boolean[][] visited;
-    private int x;
-    private int y;             // L 0    R 1   Up 2  Down 3
+    private int x, y, unvisited;// L 0   R 1   Up 2  Down 3
     private int[][] direction = {{-1,0},{1,0},{0,-1},{0,1}};
     private int[][][] paths;
     
     public WilsonsAlgo(int cols, int rows) {
         this.cols = cols;
         this.rows = rows;
+        this.unvisited = cols*rows;
         this.maze = new Maze(cols, rows);
         this.visited = new boolean[cols][rows];
         this.paths = new int[cols][rows][4];
@@ -34,14 +32,10 @@ public class WilsonsAlgo {
     
     public void randomWalk() {
         pickACell();
-        ArrayList<Integer> path = new ArrayList<>();
         paths[x][y][0] = 1;         //paths[][][0]=1 tells that path has been in 
         paths[x][y][1] = 0;         //this cell. [][][1] tells path arrived by
         paths[x][y][2] = 0;         //0=start, going: (1)L (2)R (3)Up (4)Down
-        paths[x][y][3] = 0;         //[][][2] where is goes from that cell
-        path.add(0, x*100+y);       //[][][3]=index in path.
-        int loops = 0;
-        int[][] loopi = new int[100][2];
+                                     //[][][2] where is goes from that cell
         int nx = x;
         int ny = y;
         
@@ -52,8 +46,9 @@ public class WilsonsAlgo {
             nx = nx + direction[dir][0];
             ny = ny + direction[dir][1];
             paths[nx][ny][1] = dir;         //how it came here
+            
             if (paths[nx][ny][0] == 1) {
-                loops++;                    //remove the loop
+                                            //remove the loop
                 int fromx = nx+direction[paths[nx][ny][2]][0];
                 int fromy = ny+direction[paths[nx][ny][2]][1];
                 
@@ -66,7 +61,6 @@ public class WilsonsAlgo {
             }
         }
         carvePath();
-        System.out.println("Got here");
     }
     
     public void carvePath() {
@@ -74,6 +68,7 @@ public class WilsonsAlgo {
         int fromy = this.y;
         while (!visited[fromx][fromy]) {
             visited[fromx][fromy] = true;
+            unvisited--;
             int dir = paths[fromx][fromy][2];
             int mazex = fromx*2+1;
             int mazey = fromy+1;
@@ -89,9 +84,13 @@ public class WilsonsAlgo {
             if (dir == 3) {
                 maze.carve(mazex, mazey);
             }
-            maze.printMaze();
+            
             fromx = fromx+direction[dir][0];
             fromy = fromy+direction[dir][1];
+        }
+//        maze.printMaze();
+        if (unvisited > 0) randomWalk();
+        else{ maze.printMaze();
         }
     }
     
@@ -167,6 +166,7 @@ public class WilsonsAlgo {
     public void start() {
         pickACell();
         visited[this.x][this.y] = true;
+        unvisited--;
         randomWalk();
     }
     
