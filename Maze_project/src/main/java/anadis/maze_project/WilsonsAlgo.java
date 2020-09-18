@@ -65,10 +65,35 @@ public class WilsonsAlgo {
                 
             }
         }
+        carvePath();
         System.out.println("Got here");
     }
     
-    
+    public void carvePath() {
+        int fromx = this.x;
+        int fromy = this.y;
+        while (!visited[fromx][fromy]) {
+            visited[fromx][fromy] = true;
+            int dir = paths[fromx][fromy][2];
+            int mazex = fromx*2+1;
+            int mazey = fromy+1;
+            if (dir == 0) {
+                maze.carve(mazex-1, mazey);
+            }
+            if (dir == 1) {
+                maze.carve(mazex+1, mazey);
+            }
+            if (dir == 2) {
+                maze.carve(mazex, mazey-1);
+            }
+            if (dir == 3) {
+                maze.carve(mazex, mazey);
+            }
+            maze.printMaze();
+            fromx = fromx+direction[dir][0];
+            fromy = fromy+direction[dir][1];
+        }
+    }
     
     public int chooseDir(int nx, int ny) {
         
