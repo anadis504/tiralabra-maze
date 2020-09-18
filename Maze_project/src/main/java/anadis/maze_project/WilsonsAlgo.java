@@ -84,7 +84,7 @@ public class WilsonsAlgo {
             if (dir == 3) {
                 maze.carve(mazex, mazey);
             }
-            
+//            maze.printMaze();            
             fromx = fromx+direction[dir][0];
             fromy = fromy+direction[dir][1];
         }

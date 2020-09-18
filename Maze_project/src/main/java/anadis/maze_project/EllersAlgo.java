@@ -14,16 +14,12 @@ package anadis.maze_project;
 public class EllersAlgo {
     
     private int[] currentRow;
-    private boolean[] walls;
-    private int rows;
-    private int cols;
+    private boolean[] walls, availables;
+    private int rows, cols, free;
     private Maze maze;
     private boolean lastRow;
-    private int[] setsMembers;
-    private int[] openBottoms;
-    private int[] seen;
-    private boolean[] availables;
-    private int free;
+    private int[] setsMembers, openBottoms, seen;
+    
     
     public EllersAlgo(int cols, int rows) {
         this.cols = cols+1;
@@ -60,10 +56,10 @@ public class EllersAlgo {
                 currentRow[i] = set;                    //for cells without set
                 setsMembers[set]++;
             }
-            System.out.print(currentRow[i] + " ");  //printing the set-ids of 
+//            System.out.print(currentRow[i] + " ");  //printing the set-ids of 
         }                                         //the last row. Just checking
         
-        System.out.println("");
+//        System.out.println("");
         if (lastRow) completeMaze();
         for (int i = 0; i < currentRow.length-1; i++) {
             if (currentRow[i] == currentRow[i+1]) {
@@ -94,7 +90,6 @@ public class EllersAlgo {
         }
         completeRow(rows);
         this.maze.printMaze();
-        System.out.println("OK");
         return;
     }
     
@@ -157,16 +152,19 @@ public class EllersAlgo {
                 walls[i] = false;               //removing the bottom-wall
             }
         }
-        this.maze.printMaze();
-        
+//        this.maze.printMaze();
+
         generateRow(rownr);
-       
+
     }
     
     public int random() {
         return (int)(System.nanoTime()%100);
     }
     
+    public void start() {
+        generateRow(1);
+    }
     public int getAvailableSet() {
         int freeset = 0;
         for (int i = 1; i < this.availables.length; i++) {
