@@ -44,29 +44,52 @@ public class WilsonsAlgo {
         for (int i = 0; i < path.size(); i++) {
             int nx = path.get(i)/100;
             int ny = path.get(i)%100;
-            int dir = 99;
-            int poss = ifBorder(nx,ny);
-            int noGo = paths[nx][ny][0];
-            if (noGo%2==0) noGo =-2;
-            
-            if (poss == 0) {
-                int r = random()%3;
-                if (r == noGo) r++;
-                dir = r;
-                System.out.println("OK");
-            }
-            else if (poss < 100) {
-                int a = poss/10;
-                int b = poss%10;
-                if (noGo == a-1) dir = b-1;
-                else dir = a-1;
-                System.out.println("OK2");
-            }    
-            System.out.println(dir);
-                
-            
             
         }
+    }
+    
+    
+    public int chooseDir(int nx, int ny) {
+        int dir = 99;
+        int poss = ifBorder(nx,ny);
+        int noGo = paths[nx][ny][0];
+        if (noGo%2==0) noGo =-2;
+            
+        if (poss == 0) {
+            int r = random()%3;
+            if (paths[nx][ny][0] == 0) r = random()%4;
+            if (r == noGo) r++;
+            return r;
+        }
+        if (poss < 100) {
+            int a = poss/10-1;
+            int b = poss%10-1;
+            if (noGo == a) return b;
+            if (noGo == b) return a;
+            int r = random()%2;
+            if (r == 0) return a;
+            return b;
+        }    
+        int r = random()%2;
+        int a = poss/100-1;
+        int b = (poss/10)%10-1;
+        int c = poss%10-1;
+        if (a == noGo) {
+            if (r==0) return b;
+            return c;
+        }
+        if (b == noGo) {
+            if (r==0) return a;
+            return c;
+        }
+        if (c == noGo) {
+            if (r==0) return a;
+            return b;
+        }
+        r = random()%3;
+        if (r==0) return a;
+        if (r==1) return b;
+        return c;
     }
     
     public int ifBorder(int x, int y) {                 //1 L  2 R  3 U  4 D
