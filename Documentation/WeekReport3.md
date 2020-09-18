@@ -88,3 +88,11 @@ Methods:
 7. Has a random numbers generating method (I followed this course’s guidelines)
 
 Time complexity of generating one row is O(n²) and it does this m times making the time complexity of this generator O(n²m). There are no restrictions for the size of the maze (as in Wilson’s, my (so far) implementation restricts the size to n<=100 m<=100)
+
+
+
+Questions: Is this somehow the way documentation should be like?
+
+For next week: implement solving algorithms, can I use the ones from Tira? Like dfs, bfs, Dijkstra?Also there is no user interface yet. Then I have to make the documentation of the WilsonsAlgo generator, and its time complexity (the same manner as here?). I have to admit that each of the algorithms took me one full day to figure out and write, it was really hard. I’m not complaining, it was really fun, especially once it kind of took off (but before it took of it was quite frustrating).  Also, I hope to make it to the workshop on Monday and get help with the starting of the testing.
+
+Time spent: 20h
