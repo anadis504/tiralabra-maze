@@ -27,7 +27,7 @@ public class WilsonsAlgo {
         this.rows = rows;
         this.maze = new Maze(cols, rows);
         this.visited = new boolean[cols][rows];
-        this.paths = new int[cols][rows][3];
+        this.paths = new int[cols][rows][4];
     
     }
     
@@ -36,21 +36,42 @@ public class WilsonsAlgo {
         pickACell();
         ArrayList<Integer> path = new ArrayList<>();
         paths[x][y][0] = 1;         //paths[][][0]=1 tells that path has been in 
-        paths[x][y][1] = 0;       //this cell. [][][1] tells path arrived by 
-        path.add(0, x*100+y);       //0=start, going: (1)L (2)R (3)Up (4)Down
+        paths[x][y][1] = 0;         //this cell. [][][1] tells path arrived by
+        paths[x][y][2] = 0;         //0=start, going: (1)L (2)R (3)Up (4)Down
+        paths[x][y][3] = 0;         //[][][2] where is goes from that cell
+        path.add(0, x*100+y);       //[][][3]=index in path.
         int loops = 0;
         int[][] loopi = new int[100][2];
+        int nx = x;
+        int ny = y;
         
-        for (int i = 0; i < path.size(); i++) {
-            int nx = path.get(i)/100;
-            int ny = path.get(i)%100;
+        while (!visited[nx][ny]) {
             
+            int dir = chooseDir(nx, ny);
+            paths[nx][ny][2] = dir;         //where path goes
+            nx = nx + direction[dir][0];
+            ny = ny + direction[dir][1];
+            paths[nx][ny][1] = dir;         //how it came here
+            if (paths[nx][ny][0] == 1) {
+                loops++;                    //remove the loop
+                int fromx = nx+direction[paths[nx][ny][2]][0];
+                int fromy = ny+direction[paths[nx][ny][2]][1];
+                
+                while (fromx != nx && fromy != ny) {
+                    paths[fromx][fromy][0] = 0;     //remove cell from path
+                    fromx = fromx+direction[paths[fromx][fromy][2]][0];
+                    fromy = fromy+direction[paths[fromx][fromy][2]][1];
+                }
+                
+            }
         }
+        System.out.println("Got here");
     }
     
     
+    
     public int chooseDir(int nx, int ny) {
-        int dir = 99;
+        
         int poss = ifBorder(nx,ny);
         int noGo = paths[nx][ny][0];
         if (noGo%2==0) noGo =-2;
@@ -95,8 +116,8 @@ public class WilsonsAlgo {
     public int ifBorder(int x, int y) {                 //1 L  2 R  3 U  4 D
         if (x == 0 && y == 0) return 24;         
         if (x == cols-1 && y == 0) return 14;
-        if (x == cols-1 && y == rows) return 13;
-        if (x == 0 && y == rows) return 23;
+        if (x == cols-1 && y == rows-1) return 13;
+        if (x == 0 && y == rows-1) return 23;
         if (x == 0) return 234;
         if (y == 0) return 124;
         if (x == cols-1) return 134;
@@ -121,6 +142,7 @@ public class WilsonsAlgo {
     public void start() {
         pickACell();
         visited[this.x][this.y] = true;
+        randomWalk();
     }
     
     //this limitates the maze to rows <= 100, cols <= 100. Can be modified for 

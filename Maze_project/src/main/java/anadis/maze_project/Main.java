@@ -20,7 +20,7 @@ public class Main {
 //        ellers.generateRow(1);
         
         WilsonsAlgo wa= new WilsonsAlgo(6,6);
-        wa.randomWalk();
+        wa.start();
     }
     
 }
