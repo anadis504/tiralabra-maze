@@ -15,10 +15,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+//        
+//        EllersAlgo ellers = new EllersAlgo(26,18);
+//        ellers.generateRow(1);
         
-        EllersAlgo ellers = new EllersAlgo(26,18);
-        ellers.generateRow(1);
-
+        WilsonsAlgo wa= new WilsonsAlgo(6,6);
+        wa.randomWalk();
     }
     
 }
