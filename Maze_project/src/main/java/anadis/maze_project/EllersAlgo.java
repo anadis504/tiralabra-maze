@@ -42,7 +42,6 @@ public class EllersAlgo {
             this.currentRow[i] = i+1;       
             this.walls[i] = false;
             this.walls[i*2] = false;
-//            System.out.println(i);
         }
         
         this.maze = new Maze(cols, rows);
@@ -61,8 +60,8 @@ public class EllersAlgo {
                 currentRow[i] = set;                    //for cells without set
                 setsMembers[set]++;
             }
-            System.out.print(currentRow[i] + " ");
-        }
+            System.out.print(currentRow[i] + " ");  //printing the set-ids of 
+        }                                         //the last row. Just checking
         
         System.out.println("");
         if (lastRow) completeMaze();
@@ -101,8 +100,8 @@ public class EllersAlgo {
     
     public void addBottoms() {
         for (int i = 0; i < this.seen.length; i++) {
-            this.openBottoms[i] = 0;       //Open bottoms amount
-            this.seen[i] = 0;           //Set-members seen so far
+            this.openBottoms[i] = 0;        //Open bottoms amount
+            this.seen[i] = 0;               //Set-members seen so far
         }
         for (int i = 0; i < currentRow.length; i++) {
             int set = this.currentRow[i];
@@ -153,9 +152,9 @@ public class EllersAlgo {
             else if (i%2==0 && walls[i]) {
                 int id = currentRow[i/2];
                 this.setsMembers[id]--;
-                currentRow[i/2] = 0;          //removing cells with a bottom-wall from their set
-                walls[i] = false;             //removing the bottom-wall
-//                System.out.println("Removed from index: " + i/2 + " setid: " + id);
+                currentRow[i/2] = 0;            //removing cells with a 
+                                                //bottom-wall from their set
+                walls[i] = false;               //removing the bottom-wall
             }
         }
         this.maze.printMaze();
@@ -178,7 +177,6 @@ public class EllersAlgo {
                 return freeset;
             }
         }
-//        System.out.println("this shouldn1 happen");
         return 0;
     }
 }
