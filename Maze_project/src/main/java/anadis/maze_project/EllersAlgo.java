@@ -127,7 +127,6 @@ public class EllersAlgo {
         }
         this.availables[second] = true;
         free++;
-        
     }
     
     public void completeRow(int rownr) {
