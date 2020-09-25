@@ -1,10 +1,9 @@
-package anadis.maze_project;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package anadis.maze_project.algos;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author anadis
  */
-public class TestEllersAlgo {
+public class TestWilsonsAlgo {
     
-    public TestEllersAlgo() {
+    public TestWilsonsAlgo() {
     }
     
     @BeforeClass

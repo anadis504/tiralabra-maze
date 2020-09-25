@@ -5,6 +5,8 @@
  */
 package anadis.maze_project;
 
+import anadis.maze_project.algos.EllersAlgo;
+
 /**
  *
  * @author anadis
@@ -16,11 +18,11 @@ public class Main {
      */
     public static void main(String[] args) {
 //        
-        EllersAlgo ellers = new EllersAlgo(50,50);
+        EllersAlgo ellers = new EllersAlgo(30, 50);
         ellers.start();
-        
-        WilsonsAlgo wa= new WilsonsAlgo(50,50);
-        wa.start();
+
+//        WilsonsAlgo wa= new WilsonsAlgo(50,50);
+//        wa.start();
     }
-    
+
 }

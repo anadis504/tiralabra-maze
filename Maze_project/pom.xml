@@ -34,6 +34,24 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.1.8</version>
+                <configuration>
+                    <targetClasses>
+                        <param>anadis.maze_project.domain*</param>
+                        <param>anadis.maze_project.algos*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>anadis.maze_project.domain*</param>
+                        <param>anadis.maze_project.algos*</param>
+                    </targetTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.13</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
             </plugin>
         </plugins>
     </build>
