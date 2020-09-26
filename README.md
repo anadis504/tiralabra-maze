@@ -6,4 +6,4 @@
 
 [Week report 4](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/WeekReport4.md)
 
-[Project Specification](/blob/master/Documentation/Project_Specification.md)
+[Project Specification](../blob/master/Documentation/Project_Specification.md)
