@@ -56,7 +56,7 @@ public class TestEllersAlgo {
         }
         int freeSets = ela.getFreeSets();
         assertEquals("Last row concists of more than one set", set1, set2);
-        assertEquals("The amount of sets not correct", freeSets, 99);
+        assertEquals("The amount of sets not correct", 100, freeSets);
     }
     
 }

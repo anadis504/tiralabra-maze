@@ -6,6 +6,9 @@
 package anadis.maze_project;
 
 import anadis.maze_project.algos.EllersAlgo;
+import anadis.maze_project.algos.TremauxSolve;
+import anadis.maze_project.algos.WilsonsAlgo;
+import anadis.maze_project.domain.Maze;
 
 /**
  *
@@ -20,9 +23,13 @@ public class Main {
 //        
         EllersAlgo ellers = new EllersAlgo(30, 50);
         ellers.start();
+        TremauxSolve ts = new TremauxSolve(ellers.getMaze());
+        ts.go(30, 50);
 
-//        WilsonsAlgo wa= new WilsonsAlgo(50,50);
-//        wa.start();
+        TremauxSolve tr = new TremauxSolve(new Maze(4,3));
+        tr.go(4, 3);
+        WilsonsAlgo wa= new WilsonsAlgo(15,30);
+        wa.start();
     }
 
 }

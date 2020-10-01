@@ -14,7 +14,7 @@ public class Maze {
     private char[][] grid;
     private int cols, rows;
 
-    public Maze(int c, int r) {
+    public Maze(int r, int c) {
         this.cols = c * 2 + 1;
         this.rows = r + 1;
         this.grid = new char[rows][cols];

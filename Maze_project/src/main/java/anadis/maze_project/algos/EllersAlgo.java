@@ -20,9 +20,9 @@ public class EllersAlgo {
     private boolean lastRow;
     private int[] setsMembers, openBottoms, seen;
 
-    public EllersAlgo(int cols, int rows) {
-        this.cols = cols + 1;
-        this.rows = rows;
+    public EllersAlgo(int r, int c) {
+        this.cols = c + 1;
+        this.rows = r;
         this.walls = new boolean[cols * 2 - 1];
         this.setsMembers = new int[cols + 1];
         this.openBottoms = new int[cols + 1];
@@ -39,7 +39,7 @@ public class EllersAlgo {
             this.walls[i * 2] = false;
         }
 
-        this.maze = new Maze(cols, rows);
+        this.maze = new Maze(rows, cols);
     }
 
     /*the walls[index]= true indicates that there is a wall. Index which is 
@@ -197,5 +197,9 @@ public class EllersAlgo {
     
     public int[] getCurrentRow() {
         return this.currentRow;
+    }
+    
+    public Maze getMaze() {
+        return this.maze;
     }
 }

@@ -42,4 +42,8 @@ public class TestWilsonsAlgo {
     //
     // @Test
     // public void hello() {}
+    @Test
+    public void testS() {
+        
+    }
 }

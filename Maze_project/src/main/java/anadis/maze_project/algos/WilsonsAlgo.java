@@ -20,11 +20,11 @@ public class WilsonsAlgo {
     private int[][] direction = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     private int[][][] paths;
 
-    public WilsonsAlgo(int cols, int rows) {
-        this.cols = cols;
-        this.rows = rows;
+    public WilsonsAlgo(int r, int c) {
+        this.cols = c;
+        this.rows = r;
         this.unvisited = cols * rows;
-        this.maze = new Maze(cols, rows);
+        this.maze = new Maze(rows, cols);
         this.visited = new boolean[cols][rows];
         this.paths = new int[cols][rows][3];
     }

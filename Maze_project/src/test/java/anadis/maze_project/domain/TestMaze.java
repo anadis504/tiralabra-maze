@@ -44,18 +44,18 @@ public class TestMaze {
     // public void hello() {}
     @Test
     public void test_maze_size() {
-        Maze maze = new Maze(50, 50);
+        Maze maze = new Maze(20, 50);
         char[][] grid = maze.getGrid();
-        assertEquals("Amount of rows not 50", 51, grid.length);
+        assertEquals("Amount of rows not 50", 21, grid.length);
         assertEquals("Amount of columns is not 50", 101, grid[0].length);
     }
 
     @Test
     public void testFirstAndLastChar() {
-        Maze maze = new Maze(50, 50);
+        Maze maze = new Maze(25, 50);
         char[][] grid = maze.getGrid();
         assertEquals("Upper left corner not '_'", '_', grid[0][0]);
-        assertEquals("Lower right corner not '|'", '|', grid[50][100]);
+        assertEquals("Lower right corner not '|'", '|', grid[25][100]);
     }
 
     public void testCarve() {
