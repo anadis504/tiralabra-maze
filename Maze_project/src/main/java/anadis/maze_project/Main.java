@@ -21,7 +21,7 @@ public class Main {
      */
     public static void main(String[] args) {
 //        
-        EllersAlgo ellers = new EllersAlgo(15, 30);
+        EllersAlgo ellers = new EllersAlgo(28, 60);
         ellers.start();
         TremauxSolve ts = new TremauxSolve(ellers.getMaze());
         ts.go(1, 1);
