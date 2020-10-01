@@ -21,7 +21,7 @@ public class EllersAlgo {
     private int[] setsMembers, openBottoms, seen;
 
     public EllersAlgo(int r, int c) {
-        this.cols = c + 1;
+        this.cols = c;
         this.rows = r;
         this.walls = new boolean[cols * 2 - 1];
         this.setsMembers = new int[cols + 1];
@@ -69,7 +69,7 @@ public class EllersAlgo {
         for (int i = 0; i < currentRow.length - 1; i++) {
             if (currentRow[i] == currentRow[i + 1]) {
                 walls[i * 2 + 1] = true;            //adding right-walls between 
-            }                                       //cells of same set
+            } //cells of same set
             else {
                 int r = random();               //randomly putting up walls 
                 if (r % 2 == 0) {                   //between adjacent cells of 
@@ -190,15 +190,15 @@ public class EllersAlgo {
         }
         return 0;
     }
-    
+
     public int getFreeSets() {
         return this.free;
     }
-    
+
     public int[] getCurrentRow() {
         return this.currentRow;
     }
-    
+
     public Maze getMaze() {
         return this.maze;
     }

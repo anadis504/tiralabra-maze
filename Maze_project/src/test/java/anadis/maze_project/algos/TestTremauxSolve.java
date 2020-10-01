@@ -43,6 +43,7 @@ public class TestTremauxSolve {
     //
     // @Test
     // public void hello() {}
+    
     @Test
     public void testUncarvedMaze() {
         Maze laby = new Maze(15, 30);
@@ -50,7 +51,7 @@ public class TestTremauxSolve {
         int amount = 0;
         for (int i = 1; i < tr.getCols(); i++) {
             for (int j = 1; j < tr.getRows(); j++) {
-                tr.go(j, i);
+                tr.getDirections(0, j, i);
                 amount += tr.getAmount();
             }
         }

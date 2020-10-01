@@ -21,15 +21,15 @@ public class Main {
      */
     public static void main(String[] args) {
 //        
-        EllersAlgo ellers = new EllersAlgo(30, 50);
+        EllersAlgo ellers = new EllersAlgo(15, 30);
         ellers.start();
         TremauxSolve ts = new TremauxSolve(ellers.getMaze());
-        ts.go(30, 50);
-
-        TremauxSolve tr = new TremauxSolve(new Maze(4,3));
-        tr.go(4, 3);
-        WilsonsAlgo wa= new WilsonsAlgo(15,30);
-        wa.start();
+        ts.go(1, 1);
+//
+//        TremauxSolve tr = new TremauxSolve(new Maze(4, 3));
+//        tr.go(4, 3);
+//        WilsonsAlgo wa = new WilsonsAlgo(15, 30);
+//        wa.start();
     }
 
 }
