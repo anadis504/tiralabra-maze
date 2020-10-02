@@ -46,14 +46,11 @@ public class WilsonsAlgo {
 
             if (paths[nx][ny][0] == 1) {
                 //remove the loop
-                System.out.println("Found loop in " + nx + " " + ny);
                 int fromx = nx + direction[paths[nx][ny][2]][0];
                 int fromy = ny + direction[paths[nx][ny][2]][1];
                 paths[nx][ny][0] = 2;
-//                System.out.println("From: " + fromx + " " + fromy + " - " + nx + " " + ny);
 
                 while (paths[fromx][fromy][0] == 1) {
-//                    System.out.println("Removing loop: " + fromx + " " + fromy);
                     paths[fromx][fromy][0] = 0;     //remove cell from path
                     fromx = fromx + direction[paths[fromx][fromy][2]][0];
                     fromy = fromy + direction[paths[fromx][fromy][2]][1];
@@ -86,16 +83,14 @@ public class WilsonsAlgo {
             if (dir == 4) {
                 maze.carve(mazey - 1, mazex);
             }
-            maze.printMaze();
+//            maze.printMaze();
             fromx = fromx + direction[dir][0];
             fromy = fromy + direction[dir][1];
         }
 //        System.out.println("Unvisited: " + unvisited);
-        maze.printMaze();
+//        maze.printMaze();
         if (unvisited > 0) {
             randomWalk();
-        } else {
-            maze.printMaze();
         }
     }
 
@@ -110,7 +105,7 @@ public class WilsonsAlgo {
                 dir = r;
             }
         }
-        System.out.println("Choosing dir: " + dir);
+//        System.out.println("Choosing dir: " + dir);
         return dir;
     }
 
@@ -143,7 +138,7 @@ public class WilsonsAlgo {
         while (unvisited > 0) {              //keeping unvisited cells in some array for
             int rx = (random() % rows) + 1; //their own
             int ry = (random() % cols) + 1;
-            System.out.println("picking cell " + rx + " " + ry);
+//            System.out.println("picking cell " + rx + " " + ry);
             if (!visited[rx][ry]) {
                 this.x = rx;
                 this.y = ry;
@@ -162,7 +157,7 @@ public class WilsonsAlgo {
         visited[this.x][this.y] = true;
         unvisited--;
 //        System.out.println("Start: unvisited " + unvisited );
-        System.out.println("Strartcell: " + x + " " + y);
+//        System.out.println("Strartcell: " + x + " " + y);
         randomWalk();
     }
 

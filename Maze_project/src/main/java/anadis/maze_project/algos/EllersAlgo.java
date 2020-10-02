@@ -40,6 +40,7 @@ public class EllersAlgo {
         }
 
         this.maze = new Maze(rows, cols);
+        start();
     }
 
     /*the walls[index]= true indicates that there is a wall. Index which is 
@@ -93,7 +94,6 @@ public class EllersAlgo {
             }
         }
         completeRow(rows);
-        this.maze.printMaze();
         return;
     }
 

@@ -24,12 +24,7 @@ public class Main {
 
         UI ui = new UI();
 
-//        ui.generate(1, 60, 60);
-//        ui.generate(2, 1, 1);
-//        ui.generate(2, 3, 2);
-//        ui.generate(2, 5, 7);
-        ui.generate(2, 1, 10);
-//        ui.run();
+        ui.run();
     }
 
 }

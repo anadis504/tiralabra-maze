@@ -26,11 +26,9 @@ public class TremauxSolve {
         this.grid = g;
         this.rows = grid.length;
         this.cols = (grid[0].length + 1) / 2;
-        System.out.println("int x: " + rows + ", int y: " + cols);
+//        System.out.println("int x: " + rows + ", int y: " + cols);
         this.markedPath = new int[rows][cols][2];
         this.dir = new boolean[5];
-        this.finnishx = rows - 1;
-        this.finnishy = cols - 1;
         solve();
     }
 
