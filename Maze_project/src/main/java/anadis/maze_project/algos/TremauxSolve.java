@@ -8,7 +8,6 @@ import anadis.maze_project.domain.Maze;
  */
 public class TremauxSolve {
 
-    private Maze maze;
     private int[][][] markedPath;
     private int cols, rows, amount;
     private int startx, starty, finnishx, finnishy;
@@ -17,10 +16,14 @@ public class TremauxSolve {
     private int[][] direction = {{0, 0}, {-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     private int[] froms = {0, 3, 4, 1, 2};
     private char[] path = {' ', 'v', '<', '^', '>', 's', 'f'};
+    private boolean solved = false;
 
-    public TremauxSolve(Maze lab) {
-        this.maze = lab;
-        this.grid = maze.getGrid();
+    public TremauxSolve(char[][] g, int stx, int sty, int finx, int finy) {
+        this.startx = stx;
+        this.starty = sty;
+        this.finnishx = finx;
+        this.finnishy = finy;
+        this.grid = g;
         this.rows = grid.length;
         this.cols = (grid[0].length + 1) / 2;
         System.out.println("int x: " + rows + ", int y: " + cols);
@@ -28,27 +31,10 @@ public class TremauxSolve {
         this.dir = new boolean[5];
         this.finnishx = rows - 1;
         this.finnishy = cols - 1;
-//        System.out.println("fxy: " + finnishx + " " + finnishy);
-//        for (int i = 0; i < grid.length; i++) {
-//            System.out.print(i + " ");
-//            for (int j = 0; j < grid[0].length; j++) {
-//                System.out.print(j + "" + grid[i][j]);
-//            }
-//            System.out.println("");
-//        }
-//        for (int i = 1; i < 5; i++) {
-//            for (int j = 0; j < 2; j++) {
-//                System.out.print(i + " " + j + " " + direction[i][j]);
-//                }
-//              
-//            System.out.println("");
-//        }
-//        System.out.println(direction[2][1]);
+        solve();
     }
 
-    public void go(int r, int c) {
-        this.startx = r;
-        this.starty = c;
+    public void solve() {
         int x = startx;
         int y = starty;
 //        getDirections(0, x, y);
@@ -62,8 +48,6 @@ public class TremauxSolve {
             }
             int from = markedPath[x][y][1];
             getDirections(from, x, y);
-//            for (int i = 0; i < 5; i++) System.out.print(" " + i + " " + dir[i] + " ");
-
             if (amount == 0) {
                 while (amount == 0) {
                     if (x == startx && y == starty) {
@@ -76,28 +60,22 @@ public class TremauxSolve {
                     y += direction[from][1];
                     from = markedPath[x][y][1];
                     getDirections(from, x, y);
-//                    System.out.println(x + ", " + y  +" going back " + from);
-
                 }
             }
 
             for (int i = 1; i < 5; i++) {
                 if (dir[i]) {
                     if (markedPath[x + direction[i][0]][y + direction[i][1]][0] == 0) {
-//                        System.out.println(x + "," + y + " ");
                         x += direction[i][0];
                         y += direction[i][1];
                         markedPath[x][y][0] += 1;
                         markedPath[x][y][1] = froms[i];
-//                        System.out.println(x + "," + y + " came from " + froms[i]);
                         break;
                     }
                 }
             }
         }
-
-        System.out.println("Solved it!");
-        printSolution();
+        solved = true;
     }
 
     public void getDirections(int from, int r, int c) {
@@ -106,28 +84,25 @@ public class TremauxSolve {
         }
         this.amount = 0;
         if (from != 1 && grid[r - 1][c * 2 - 1] == ' ' && markedPath[r - 1][c][1] == 0) {
-//            System.out.println(grid[r - 1][c * 2 - 1]);
             dir[1] = true;
             amount++;
         }
-        if (from != 2 && grid[r][(c) * 2 ] == ' ' && markedPath[r][c + 1][1] == 0) {
+        if (from != 2 && grid[r][(c) * 2] == ' ' && markedPath[r][c + 1][1] == 0) {
             dir[2] = true;
-//            System.out.println(grid[r][c * 2]);
             amount++;
         }
         if (from != 3 && grid[r][c * 2 - 1] == ' ' && markedPath[r + 1][c][1] == 0) {
             dir[3] = true;
-//            System.out.println(grid[r][c * 2 - 1]);
             amount++;
         }
         if (from != 4 && grid[r][c * 2 - 2] == ' ' && markedPath[r][c - 1][1] == 0) {
             dir[4] = true;
-//            System.out.println(grid[r][c * 2 - 2]);
             amount++;
         }
     }
 
     public void printSolution() {
+        markedPath[finnishx][finnishy][1] = 6;
         for (int j = 1; j < rows; j++) {
             for (int i = 1; i < cols; i++) {
                 if (markedPath[j][i][0] == 0) {
@@ -137,14 +112,6 @@ public class TremauxSolve {
                 } else {
                     System.out.print(path[0] + " ");
                 }
-            }
-            System.out.println("");
-        }
-        for (int j = 1; j < rows; j++) {
-            for (int i = 1; i < cols; i++) {
-
-                System.out.print(markedPath[j][i][0] + " ");
-
             }
             System.out.println("");
         }
@@ -161,5 +128,9 @@ public class TremauxSolve {
 
     public int getAmount() {
         return this.amount;
+    }
+    
+    public boolean getSolved() {
+        return this.solved;
     }
 }

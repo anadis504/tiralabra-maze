@@ -53,6 +53,17 @@ public class Maze {
         if (colnr <= 0 || rownr <= 0 || colnr >= cols - 1 || rownr >= rows) {
             return;
         }
+        if (rownr == rows-1 && colnr % 2 == 1) {
+            return;
+        }
         this.grid[rownr][colnr] = ' ';
+    }
+
+    public int getRows() {
+        return this.rows;
+    }
+
+    public int getCols() {
+        return this.cols / 2 + 1;
     }
 }

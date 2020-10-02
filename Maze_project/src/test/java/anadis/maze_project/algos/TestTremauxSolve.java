@@ -43,11 +43,10 @@ public class TestTremauxSolve {
     //
     // @Test
     // public void hello() {}
-    
     @Test
     public void testUncarvedMaze() {
         Maze laby = new Maze(15, 30);
-        TremauxSolve tr = new TremauxSolve(laby);
+        TremauxSolve tr = new TremauxSolve(laby.getGrid(), 1, 1, 15, 30);
         int amount = 0;
         for (int i = 1; i < tr.getCols(); i++) {
             for (int j = 1; j < tr.getRows(); j++) {

@@ -9,6 +9,7 @@ import anadis.maze_project.algos.EllersAlgo;
 import anadis.maze_project.algos.TremauxSolve;
 import anadis.maze_project.algos.WilsonsAlgo;
 import anadis.maze_project.domain.Maze;
+import anadis.maze_project.utils.UI;
 
 /**
  *
@@ -20,16 +21,15 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        
-        EllersAlgo ellers = new EllersAlgo(28, 60);
-        ellers.start();
-        TremauxSolve ts = new TremauxSolve(ellers.getMaze());
-        ts.go(1, 1);
-//
-//        TremauxSolve tr = new TremauxSolve(new Maze(4, 3));
-//        tr.go(4, 3);
-//        WilsonsAlgo wa = new WilsonsAlgo(15, 30);
-//        wa.start();
+
+        UI ui = new UI();
+
+//        ui.generate(1, 60, 60);
+//        ui.generate(2, 1, 1);
+//        ui.generate(2, 3, 2);
+//        ui.generate(2, 5, 7);
+        ui.generate(2, 1, 10);
+//        ui.run();
     }
 
 }

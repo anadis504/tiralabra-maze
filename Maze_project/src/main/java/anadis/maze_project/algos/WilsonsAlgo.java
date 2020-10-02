@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package anadis.maze_project.algos;
 
 import anadis.maze_project.domain.Maze;
@@ -14,48 +9,57 @@ import anadis.maze_project.domain.Maze;
 public class WilsonsAlgo {
 
     private Maze maze;
-    private int rows, cols;
+    private int rows, cols, x, y, unvisited, amount;
     private boolean[][] visited;
-    private int x, y, unvisited;// L 0   R 1   Up 2  Down 3
-    private int[][] direction = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int[][] direction = {{0, 0}, {-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     private int[][][] paths;
+    private boolean[] dirs = {false, false, false, false, false};
+    private int[] froms = {0, 3, 4, 1, 2};
 
     public WilsonsAlgo(int r, int c) {
         this.cols = c;
         this.rows = r;
-        this.unvisited = cols * rows;
+        this.unvisited = c * r;
         this.maze = new Maze(rows, cols);
-        this.visited = new boolean[cols][rows];
-        this.paths = new int[cols][rows][3];
+        this.visited = new boolean[rows + 1][cols + 1];
+        this.paths = new int[rows + 1][cols + 1][3];
+        start();
     }
 
     public void randomWalk() {
         pickACell();
+
         paths[x][y][0] = 1;         //paths[][][0]=1 tells that path has been in 
         paths[x][y][1] = 0;         //this cell. [][][1] tells path arrived by
-        paths[x][y][2] = 0;         //0=start, going: (1)L (2)R (3)Up (4)Down
-        //[][][2] where it continues from that cell
+        paths[x][y][2] = 0;         //[][][2] where it continues from that cell
         int nx = x;
         int ny = y;
 
         while (!visited[nx][ny]) {
 
             int dir = chooseDir(nx, ny);
+            paths[nx][ny][0] = 1;
             paths[nx][ny][2] = dir;         //where path goes
             nx = nx + direction[dir][0];
             ny = ny + direction[dir][1];
-            paths[nx][ny][1] = dir;         //how it came here
+            paths[nx][ny][1] = froms[dir];         //how it came here
 
             if (paths[nx][ny][0] == 1) {
                 //remove the loop
+                System.out.println("Found loop in " + nx + " " + ny);
                 int fromx = nx + direction[paths[nx][ny][2]][0];
                 int fromy = ny + direction[paths[nx][ny][2]][1];
+                paths[nx][ny][0] = 2;
+//                System.out.println("From: " + fromx + " " + fromy + " - " + nx + " " + ny);
 
-                while (fromx != nx && fromy != ny) {
+                while (paths[fromx][fromy][0] == 1) {
+//                    System.out.println("Removing loop: " + fromx + " " + fromy);
                     paths[fromx][fromy][0] = 0;     //remove cell from path
                     fromx = fromx + direction[paths[fromx][fromy][2]][0];
                     fromy = fromy + direction[paths[fromx][fromy][2]][1];
+
                 }
+                paths[nx][ny][0] = 1;
             }
         }
         carvePath();
@@ -68,25 +72,26 @@ public class WilsonsAlgo {
             visited[fromx][fromy] = true;
             unvisited--;
             int dir = paths[fromx][fromy][2];
-            int mazex = fromx * 2 + 1;
-            int mazey = fromy + 1;
-            if (dir == 0) {
-                maze.carve(mazex - 1, mazey);
-            }
+            int mazex = fromx;
+            int mazey = fromy * 2 - 1;
             if (dir == 1) {
-                maze.carve(mazex + 1, mazey);
+                maze.carve(mazey, mazex - 1);
             }
             if (dir == 2) {
-                maze.carve(mazex, mazey - 1);
+                maze.carve(mazey + 1, mazex);
             }
             if (dir == 3) {
-                maze.carve(mazex, mazey);
+                maze.carve(mazey, mazex);
             }
-//            maze.printMaze();            
+            if (dir == 4) {
+                maze.carve(mazey - 1, mazex);
+            }
+            maze.printMaze();
             fromx = fromx + direction[dir][0];
             fromy = fromy + direction[dir][1];
         }
-//        maze.printMaze();
+//        System.out.println("Unvisited: " + unvisited);
+        maze.printMaze();
         if (unvisited > 0) {
             randomWalk();
         } else {
@@ -96,102 +101,49 @@ public class WilsonsAlgo {
 
     public int chooseDir(int nx, int ny) {
 
-        int poss = ifBorder(nx, ny);
-        int noGo = paths[nx][ny][0];
-        if (noGo % 2 == 0) {
-            noGo = -2;
-        }
-
-        if (poss == 0) {
-            int r = random() % 3;
-            if (paths[nx][ny][0] == 0) {
-                r = random() % 4;
+        ifBorder(nx, ny);
+        int from = paths[nx][ny][1];
+        int dir = 0;
+        while (dir == 0) {
+            int r = (random() % 4) + 1;
+            if (dirs[r] && r != from) {
+                dir = r;
             }
-            if (r == noGo) {
-                r++;
-            }
-            return r;
         }
-        if (poss < 100) {
-            int a = poss / 10 - 1;
-            int b = poss % 10 - 1;
-            if (noGo == a) {
-                return b;
-            }
-            if (noGo == b) {
-                return a;
-            }
-            int r = random() % 2;
-            if (r == 0) {
-                return a;
-            }
-            return b;
-        }
-        int r = random() % 2;
-        int a = poss / 100 - 1;
-        int b = (poss / 10) % 10 - 1;
-        int c = poss % 10 - 1;
-        if (a == noGo) {
-            if (r == 0) {
-                return b;
-            }
-            return c;
-        }
-        if (b == noGo) {
-            if (r == 0) {
-                return a;
-            }
-            return c;
-        }
-        if (c == noGo) {
-            if (r == 0) {
-                return a;
-            }
-            return b;
-        }
-        r = random() % 3;
-        if (r == 0) {
-            return a;
-        }
-        if (r == 1) {
-            return b;
-        }
-        return c;
+        System.out.println("Choosing dir: " + dir);
+        return dir;
     }
 
-    public int ifBorder(int x, int y) {                 //1 L  2 R  3 U  4 D
-        if (x == 0 && y == 0) {
-            return 24;
+    public void ifBorder(int x, int y) {                 //1 L  2 R  3 U  4 D
+
+        amount = 4;
+        for (int i = 1; i < 5; i++) {
+            dirs[i] = true;
         }
-        if (x == cols - 1 && y == 0) {
-            return 14;
+        if (x == 1) {
+            dirs[1] = false;
+            amount--;
         }
-        if (x == cols - 1 && y == rows - 1) {
-            return 13;
+        if (x == rows) {
+            dirs[3] = false;
+            amount--;
         }
-        if (x == 0 && y == rows - 1) {
-            return 23;
+        if (y == 1) {
+            dirs[4] = false;
+            amount--;
         }
-        if (x == 0) {
-            return 234;
-        }
-        if (y == 0) {
-            return 124;
-        }
-        if (x == cols - 1) {
-            return 134;
-        }
-        if (y == rows - 1) {
-            return 123;
+        if (y == cols) {
+            dirs[2] = false;
+            amount--;
         }
 
-        return 0;
     }
 
     public void pickACell() {       //this could definitely be optimized by 
-        while (true) {              //keeping unvisited cells in some array for
-            int rx = random() % cols; //their own
-            int ry = random() % rows;
+        while (unvisited > 0) {              //keeping unvisited cells in some array for
+            int rx = (random() % rows) + 1; //their own
+            int ry = (random() % cols) + 1;
+            System.out.println("picking cell " + rx + " " + ry);
             if (!visited[rx][ry]) {
                 this.x = rx;
                 this.y = ry;
@@ -201,15 +153,44 @@ public class WilsonsAlgo {
     }
 
     public void start() {
+        if (rows == 1 || cols == 1) {
+            carveTube();
+            maze.printMaze();
+            return;
+        }
         pickACell();
         visited[this.x][this.y] = true;
         unvisited--;
+//        System.out.println("Start: unvisited " + unvisited );
+        System.out.println("Strartcell: " + x + " " + y);
         randomWalk();
     }
 
-    //this limitates the maze to rows <= 100, cols <= 100. Can be modified for 
-    //bigger maze later
+    public void carveTube() {
+        for (int i = 1; i <= rows; i++) {
+            for ( int j = 1; j <= cols*2; j++) {
+                maze.carve(j, i);
+            }
+        }
+    }
+    
+    public char[][] getGrid() {
+        return maze.getGrid();
+    }
+
+    public Maze getMaze() {
+        return this.maze;
+    }
+
     public int random() {
         return (int) (System.nanoTime() % 100);
+    }
+
+    public int getRows() {
+        return this.rows;
+    }
+
+    public int gerCols() {
+        return this.cols;
     }
 }

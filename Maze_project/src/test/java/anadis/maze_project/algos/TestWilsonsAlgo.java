@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author anadis
  */
 public class TestWilsonsAlgo {
-    
+
     public TestWilsonsAlgo() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -43,7 +43,27 @@ public class TestWilsonsAlgo {
     // @Test
     // public void hello() {}
     @Test
-    public void testS() {
-        
+    public void testTen() {
+        WilsonsAlgo willy = new WilsonsAlgo(10, 10);
+        TremauxSolve ts = new TremauxSolve(willy.getGrid(), 1, 1, 10, 10);
+        assertEquals(true, ts.getSolved());
+    }
+
+    @Test
+    public void testOne() {
+        WilsonsAlgo willy = new WilsonsAlgo(1, 1);
+        willy.getMaze().printMaze();
+        assertEquals(1, willy.gerCols());
+        assertEquals(1, willy.getRows());
+    }
+
+    @Test
+    public void testVectorMaze() {
+        WilsonsAlgo willyR = new WilsonsAlgo(1, 10);
+        WilsonsAlgo willyC = new WilsonsAlgo(10, 1);
+        TremauxSolve trR = new TremauxSolve(willyR.getGrid(), 1, 1, 1, 10);
+        assertEquals(1, willyR.getRows());
+        assertEquals(1, willyC.gerCols());
+        assertEquals(true, trR.getSolved());
     }
 }
