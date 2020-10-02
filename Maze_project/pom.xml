@@ -38,10 +38,12 @@
                     <targetClasses>
                         <param>anadis.maze_project.domain*</param>
                         <param>anadis.maze_project.algos*</param>
+                        <param>anadis.maze_project.utils*</param>
                     </targetClasses>
                     <targetTests>
                         <param>anadis.maze_project.domain*</param>
                         <param>anadis.maze_project.algos*</param>
+                        <param>anadis.maze_project.utils*</param>
                     </targetTests>
                 </configuration>
             </plugin>
