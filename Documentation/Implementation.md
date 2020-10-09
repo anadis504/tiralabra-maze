@@ -12,6 +12,9 @@ Generates a n*m (where n = number of columns, m = number of rows) maze full of w
 
 Generates a perfect maze (n*m) using Eller’s algorithm. The algorithm generates one row at a time keeeping track of sets of cells to avoid loops and isolated areas. It only needs to keep the current row in memory making the space complexity O(n) where n is the number of cells in the row. Data structures are array tables.
 
+Constructor:
+EllersAlgo(rows, column)
+
 Methods:
 1. generateRow():
 * assigning cells without a set to their own unique set (reusing eliminated set => amount of sets stays the same throughout the whole process). Time complexity O(n)
@@ -35,6 +38,7 @@ Methods:
 
 ## 3. Class WilsonAlgo
 
-Generates a perfect maze based on Wilson's algorithm.
+Generates a perfect maze using Wilson's algorithm based on looperased random walks.
 
-
+Methods:
+1. 
