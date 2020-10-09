@@ -10,7 +10,7 @@ Generates a n*m (where n = number of columns, m = number of rows) maze full of w
 
 ## 2. Class EllersAlgo
 
-Generates a perfect maze (n*m) using Eller’s algorithm. The algorithm generates one row at a time keeeping track of sets of cells to avoid loops and isolated areas. Data structures are array tables.
+Generates a perfect maze (n*m) using Eller’s algorithm. The algorithm generates one row at a time keeeping track of sets of cells to avoid loops and isolated areas. It only needs to keep the current row in memory making the space complexity O(n) where n is the number of cells in the row. Data structures are array tables.
 
 Methods:
 1. generateRow():
