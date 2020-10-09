@@ -42,3 +42,7 @@ Generates a perfect maze using Wilson's algorithm based on looperased random wal
 
 Methods:
 1. 
+
+## 4. Class TremauxSolve
+
+Solves the generated maze by Tremaux solving method
