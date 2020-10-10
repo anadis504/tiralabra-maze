@@ -39,18 +39,14 @@ WilsonsAlgo(rows, columns)
 
 ### Methods:
 1. pickACell()
-
-randomly chooses an unvisited cell from the grid. Takes advantage of the IndexTree class to find the next free cell in O(log n) time.
+* randomly chooses an unvisited cell from the grid. Takes advantage of the IndexTree class to find the next free cell in O(log n) time.
 
 2. randomWalk()
-
-Makes a loop-erased random walk until meeting a visited cell. The earliest walks will take the longest time to find the few visited cells. The later walk will be significantly faster. Because of the random factor of this method the time complexity is very difficult to estimate. In theory it can make infinitely many loops which it erases before the walk is over, covering much of the grid. As the maximum size of the grid is approximately 110x110 because of memory restrictions the probability that it will find the visited area before covering the whole grid n times grows as the visited area expands. Ruff complexity limit O(n³) time and O(n*m) space. 
-
-Calls on methods chooseDir(), which calls on method ifBorder() which work in constant time.
+* Makes a loop-erased random walk until meeting a visited cell. The earliest walks will take the longest time to find the few visited cells. The later walk will be significantly faster. Because of the random factor of this method the time complexity is very difficult to estimate. In theory it can make infinitely many loops which it erases before the walk is over, covering much of the grid. As the maximum size of the grid is approximately 110x110 because of memory restrictions the probability that it will find the visited area before covering the whole grid n times grows as the visited area expands. Ruff complexity limit O(n³) time and O(n*m) space. 
+* Calls on methods chooseDir(), which calls on method ifBorder() which work in constant time.
 
 3. carvePath()
-
-Carves the path in the Maze template and marks the cells from the path visited. Time during the whole maze generation O(n*m)
+* Carves the path in the Maze template and marks the cells from the path visited. Time during the whole maze generation O(n*m)
 
 
 ## 4. Class TremauxSolve
