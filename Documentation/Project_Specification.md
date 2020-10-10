@@ -17,3 +17,9 @@ The space complexity of the algorithm is the whole maze. Actually I don't quite 
 Eller's algorithm creates the Maze one row at a time, where once a row has been generated, the algorithm no longer looks at it. Each cell in a row is contained in a set, where two cells are in the same set if there's a path between them through the part of the Maze that's been made so far. This information allows passages to be carved in the current row without creating loops or isolations. 
 
 Because the algorithm generates the maze one row at a time it only needs to keep the current row in memory making the space complexity O(n) where n is the number of cells in the row. Time complexity is O(n²m) where m is the amount of rows in the maze.
+
+## Sources
+[Think Labyrinthm](http://www.astrolog.org/labyrnth/algrithm.htm)
+[Wilson's algorithm](http://people.cs.ksu.edu/~ashley78/wiki.ashleycoleman.me/index.php/Wilson's_Algorithm.html)
+[James Buck blog on Wilson's algorithm](http://weblog.jamisbuck.org/2011/1/20/maze-generation-wilson-s-algorithm.html)
+[Neocomputer on Eller's Alforithm](http://www.neocomputer.org/projects/eller.html)
