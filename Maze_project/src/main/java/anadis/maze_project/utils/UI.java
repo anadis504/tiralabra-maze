@@ -20,8 +20,8 @@ import java.util.Scanner;
 public class UI {
 
     private Scanner reader = new Scanner(System.in);
-    private static final String[] errors = {"Invalid input", "Your maze is"
-        + " large, this can take some time...", "No maze to solve yet..."};
+    private static final String[] errors = {"Invalid input", 
+        "No maze to solve yet..."};
     private static final String[] commands = {"Welcome to the maze-generation!",
         "Would you like to generate a perfect maze?", "Here are your options:",
         "(1) Generate labyrinth by Eller's Algorithm", "(2) Generate labyrinth "
@@ -63,9 +63,7 @@ public class UI {
                     System.out.print(commands[7]);
                     c = Integer.valueOf(reader.nextLine());
                 }
-                if (r + c > 100 && opt == 2) {
-                    System.out.println(errors[1]);
-                }
+
                 this.proportions[0] = r;
                 this.proportions[1] = c;
                 generate(opt, r, c);
@@ -74,7 +72,7 @@ public class UI {
                 continue;
             }
             if (opt == 3 && !mazeGenerated) {
-                System.out.println(errors[2]);
+                System.out.println(errors[1]);
             }
             if (opt == 3 && mazeGenerated) {
                 int[] exitCoords = new int[4];
@@ -93,7 +91,6 @@ public class UI {
                     for (int i = 0; i < xy.length; i++) {
                         String trim = xy[i].trim();
                         coords[i] = Integer.valueOf(trim);
-                        System.out.println(coords[i]);
                     }
                     boolean error = false;
                     for (int i = 0; i < 4; i++) {
@@ -109,9 +106,11 @@ public class UI {
                     }
                     break;
                 }
+                System.out.println("");
                 TremauxSolve t = new TremauxSolve(maze.getGrid(), exitCoords[0],
                         exitCoords[1], exitCoords[2], exitCoords[3]);
                 t.printSolution();
+                System.out.println("");
             }
             if (opt == -1) {
                 break;

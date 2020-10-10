@@ -9,6 +9,7 @@ import anadis.maze_project.algos.EllersAlgo;
 import anadis.maze_project.algos.TremauxSolve;
 import anadis.maze_project.algos.WilsonsAlgo;
 import anadis.maze_project.domain.Maze;
+import anadis.maze_project.utils.IndexTree;
 import anadis.maze_project.utils.UI;
 
 /**
@@ -22,6 +23,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
+        IndexTree it = new IndexTree(4,5);
         UI ui = new UI();
 
         ui.run();

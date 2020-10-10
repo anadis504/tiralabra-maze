@@ -46,8 +46,7 @@ public class TestIndexTree {
     public void returnFreeIndexWhenFree() {
         IndexTree it = new IndexTree(4, 5);
         int[] cell = it.getFreeIndex(3, 4);
-        System.out.println(cell[0] + ": " + cell[1]);
-
+//        System.out.println(cell[0] + ": " + cell[1]);
         assertEquals(cell[0], 3);
         assertEquals(cell[1], 4);
     }
@@ -58,7 +57,6 @@ public class TestIndexTree {
         it.markVisited(3, 4);
         int[] cell = it.getFreeIndex(3, 4);
         System.out.println(cell[0] + ": " + cell[1]);
-
         assertEquals(3, cell[0]);
         assertEquals(3, cell[1]);
     }
@@ -69,7 +67,6 @@ public class TestIndexTree {
         it.markVisited(1, 1);
         int[] cell = it.getFreeIndex(1, 1);
         System.out.println(cell[0] + ": " + cell[1]);
-
         assertEquals(1, cell[0]);
         assertEquals(2, cell[1]);
     }
@@ -84,17 +81,36 @@ public class TestIndexTree {
         assertEquals(4, cell[1]);
     }
 
+    @Test
+    public void testTinyTree() {
+        IndexTree it = new IndexTree(2, 2);
+        int cell[] = it.getFreeIndex(2, 2);
+
+        for (int i = 1; i <= 2; i++) {
+            for (int j = 1; j <= 2; j++) {
+                it.markVisited(i, j);
+                cell = it.getFreeIndex(i, j);
+                System.out.println(cell[0] + ": " + cell[1]);
+            }
+        }
+        assertEquals(0, cell[0]);
+        assertEquals(0, cell[1]);
+    }
+
+    @Test
     public void returnZeroCell() {
         IndexTree it = new IndexTree(4, 5);
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= 5; j++) {
                 it.markVisited(i, j);
+                int cell[] = it.getFreeIndex(i, j);
+                System.out.println(cell[0] + ": " + cell[1]);
             }
         }
         int[] cell = it.getFreeIndex(4, 3);
         System.out.println(cell[0] + ": " + cell[1]);
-
         assertEquals(0, cell[0]);
         assertEquals(0, cell[1]);
     }
+
 }

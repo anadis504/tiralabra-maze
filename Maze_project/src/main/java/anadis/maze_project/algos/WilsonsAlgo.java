@@ -1,10 +1,14 @@
 package anadis.maze_project.algos;
 
 import anadis.maze_project.domain.Maze;
+import anadis.maze_project.utils.IndexTree;
 
 /**
- *
- * @author anadis
+ * Perfect maze generating algorithm
+ * <p>
+ * Generates maze in O(?) time and o(n*m) space one row at a time by keeping 
+ * track of sets of cells to avoid loops and isolated ares.
+ * </p>
  */
 public class WilsonsAlgo {
 
@@ -15,6 +19,7 @@ public class WilsonsAlgo {
     private int[][][] paths;
     private boolean[] dirs = {false, false, false, false, false};
     private int[] froms = {0, 3, 4, 1, 2};
+    private IndexTree indexTree;
 
     public WilsonsAlgo(int r, int c) {
         this.cols = c;
@@ -23,6 +28,7 @@ public class WilsonsAlgo {
         this.maze = new Maze(rows, cols);
         this.visited = new boolean[rows + 1][cols + 1];
         this.paths = new int[rows + 1][cols + 1][3];
+        this.indexTree = new IndexTree(rows, cols);
         start();
     }
 
@@ -67,6 +73,7 @@ public class WilsonsAlgo {
         int fromy = this.y;
         while (!visited[fromx][fromy]) {
             visited[fromx][fromy] = true;
+            indexTree.markVisited(fromx, fromy);
             unvisited--;
             int dir = paths[fromx][fromy][2];
             int mazex = fromx;
@@ -83,7 +90,6 @@ public class WilsonsAlgo {
             if (dir == 4) {
                 maze.carve(mazey - 1, mazex);
             }
-//            maze.printMaze();
             fromx = fromx + direction[dir][0];
             fromy = fromy + direction[dir][1];
         }
@@ -134,16 +140,19 @@ public class WilsonsAlgo {
 
     }
 
-    public void pickACell() {       //this could definitely be optimized by 
-        while (unvisited > 0) {              //keeping unvisited cells in some array for
-            int rx = (random() % rows) + 1; //their own
+    public void pickACell() {        
+        if (unvisited > 0) {            
+            int rx = (random() % rows) + 1;
             int ry = (random() % cols) + 1;
 //            System.out.println("picking cell " + rx + " " + ry);
-            if (!visited[rx][ry]) {
-                this.x = rx;
-                this.y = ry;
-                break;
-            }
+            int[] cell = indexTree.getFreeIndex(rx, ry);
+            this.x = cell[0];
+            this.y = cell[1];
+//            if (!visited[rx][ry]) {
+//                this.x = rx;
+//                this.y = ry;
+//                break;
+//            }
         }
     }
 
@@ -155,6 +164,7 @@ public class WilsonsAlgo {
         }
         pickACell();
         visited[this.x][this.y] = true;
+        indexTree.markVisited(x, y);
         unvisited--;
 //        System.out.println("Start: unvisited " + unvisited );
 //        System.out.println("Strartcell: " + x + " " + y);
