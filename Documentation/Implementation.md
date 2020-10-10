@@ -2,23 +2,19 @@
 
 ## 1. Class Maze
 
-Generates a n*m (where n = number of columns, m = number of rows) maze full of walls for the two algorithms to carve passages through. Data structure is a char-table. Two methods are provided, 
-* printMaze()
-* carve(x, y) 
-* The initiation of the maze works in O(n*m)-time. 
-* The print-method works in O(n*m)-time.
+Generates a n*m (where n = number of columns, m = number of rows) maze full of walls for the two algorithms to carve passages through. Data structure is a char-table. Two methods are provided, one for carving in given position, one for printing the maze. Works in O(n*m) time and o(n*m) space.
 
 ## 2. Class EllersAlgo
 
-Generates a perfect maze (n*m) using Eller’s algorithm. The algorithm generates one row at a time keeeping track of sets of cells to avoid loops and isolated areas. It only needs to keep the current row in memory making the space complexity O(n) where n is the number of cells in the row. Data structures are array tables.
+Generates a perfect maze (n²*m) using Eller’s algorithm. The algorithm generates one row at a time keeeping track of sets of cells to avoid loops and isolated areas. It only needs to keep the current row in memory making the space complexity O(n) where n is the number of cells in the row. Data structures are array tables.
 
 Constructor:
 EllersAlgo(rows, column)
 
-Methods:
+### Methods:
 1. generateRow():
 * assigning cells without a set to their own unique set (reusing eliminated set => amount of sets stays the same throughout the whole process). Time complexity O(n)
-* adds right-walls between adjacent cells of same set avoiding loops (this could be a method of its own probably). Otherwise randomly decides whether to put up a right-wall or not. If not, it calls upon the joinSets()-method to join sets of the two cells without a wall between them. Each join call runs in O(n)-time which make the time complexity of this method O(n²).
+* adds right-walls between adjacent cells of same set to avoid loops. Otherwise randomly decides whether to put up a right-wall or not by calling method random(). If not putting a wall, it calls joinSets()-method to join sets of the two adjacent cells without a wall between them. joinSets() method merges all cells from the two sets into one set in O(n)-time. generateRow() works thus in O(n²).
 
 2. addBottoms():
 * randomly adds bottom-walls following given rules. First iterates over the row initiating information tables. Iterates over the row once more adding and removing walls. Time O(n).
@@ -32,19 +28,30 @@ Methods:
 5. completeMaze()
 * At the final row maze is completed by merging all sets into one. Time O(n)
 
-6. joinSets() time O(n)
-
-7. Has a random-numbers generating method (System call nano time)
+The proceedure is repeated m times, where m is the amount of rows in the maze.
 
 ## 3. Class WilsonAlgo
 
-Generates a perfect maze using Wilson's algorithm based on looperased random walks. Starts by randomly picking a cell on the grid and marking it visited. Rnadomly chooses another cell and starts a loop-erased random walk. Once arrivind at a visited cell carves the path of the walk marking cells on the path as visited.
+Generates a perfect maze using Wilson's algorithm based on looperased random walks. Starts by randomly picking a cell on the grid and marking it visited. Rnadomly chooses another cell and starts a loop-erased random walk. Once arrivind at a visited cell carves the path of the walk marking cells on the path as visited. Time O(n³), space O(n*m).
 
 Constructor:
 WilsonsAlgo(rows, columns)
 
-Methods:
-1. 
+### Methods:
+1. pickACell()
+
+randomly chooses an unvisited cell from the grid. Takes advantage of the IndexTree class to find the next free cell in O(log n) time.
+
+2. randomWalk()
+
+Makes a loop-erased random walk until meeting a visited cell. The earliest walks will take the longest time to find the few visited cells. The later walk will be significantly faster. Because of the random factor of this method the time complexity is very difficult to estimate. In theory it can make infinitely many loops which it erases before the walk is over, covering much of the grid. As the maximum size of the grid is approximately 110x110 because of memory restrictions the probability that it will find the visited area before covering the whole grid n times grows as the visited area expands. Ruff complexity limit O(n³) time and O(n*m) space. 
+
+Calls on methods chooseDir(), which calls on method ifBorder() which work in constant time.
+
+3. carvePath()
+
+Carves the path in the Maze template and marks the cells from the path visited. Time during the whole maze generation O(n*m)
+
 
 ## 4. Class TremauxSolve
 
