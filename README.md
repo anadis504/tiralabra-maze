@@ -1,8 +1,8 @@
 # tiralabra-maze
 
-[Implementation document](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Implementation.md)
-
 [Project Specification](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Project_Specification.md)
+
+[Implementation document](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Implementation.md)
 
 [User Guide](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/User_guide.md)
 
