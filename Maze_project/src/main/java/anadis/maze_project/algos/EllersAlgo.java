@@ -14,8 +14,6 @@ import anadis.maze_project.domain.Maze;
  * track of sets of cells to avoid loops and isolated ares.
  * </p>
  */
-
-
 public class EllersAlgo {
 
     private int[] currentRow;
@@ -66,55 +64,56 @@ public class EllersAlgo {
      * @param rownr for keeping track of the number of rows.
      */
     public void generateRow(int rownr) {
-        if (rownr > rows) {
+        if (rownr > this.rows) {
             return;
         }
-        if (rownr == rows) {
+        if (rownr == this.rows) {
             lastRow = true;
         }
-        for (int i = 0; i < currentRow.length; i++) {
+        for (int i = 0; i < this.currentRow.length; i++) {
 
-            if (currentRow[i] == 0) {
+            if (this.currentRow[i] == 0) {
                 int set = this.getAvailableSet();        
-                currentRow[i] = set;                    
-                setsMembers[set]++;
+                this.currentRow[i] = set;                    
+                this.setsMembers[set]++;
             }
 
         }                                         
 
-        if (lastRow) {
-            completeMaze();
+        if (this.lastRow) {
+            this.completeMaze();
         }
-        for (int i = 0; i < currentRow.length - 1; i++) {
-            if (currentRow[i] == currentRow[i + 1]) {
-                walls[i * 2 + 1] = true;            
+        for (int i = 0; i < this.currentRow.length - 1; i++) {
+            if (this.currentRow[i] == this.currentRow[i + 1]) {
+                this.walls[i * 2 + 1] = true;            
             } 
             else {
                 int r = random();               
                 if (r % 2 == 0) {                   
-                    walls[i * 2 + 1] = true;       
+                    this.walls[i * 2 + 1] = true;       
                 } else {
-                    joinSets(currentRow[i], currentRow[i + 1]);
+                    this.joinSets(this.currentRow[i], this.currentRow[i + 1]);
                 }
             }
         }
-        addBottoms();
-        completeRow(rownr);
+        this.addBottoms();
+        this.completeRow(rownr);
     }
 
     /**
-     * When last row has come maze is completed by joining all sets into one.
+     * When last row has come maze is completed by joining all sets into one and 
+     * putting up right walls between cells belonging to same set. 
      */
     public void completeMaze() {
-        for (int i = 0; i < currentRow.length - 1; i++) {
-            if (currentRow[i] == currentRow[i + 1]) {
-                walls[i * 2 + 1] = true;             
+        for (int i = 0; i < this.currentRow.length - 1; i++) {
+            if (this.currentRow[i] == this.currentRow[i + 1]) {
+                this.walls[i * 2 + 1] = true;             
             } 
             else {
-                joinSets(currentRow[i], currentRow[i + 1]);
+                this.joinSets(this.currentRow[i], this.currentRow[i + 1]);
             }
         }
-        completeRow(rows);
+        this.completeRow(rows);
         return;
     }
 
@@ -158,15 +157,15 @@ public class EllersAlgo {
      */
     public void joinSets(int first, int second) {
 
-        for (int i = 0; i < currentRow.length; i++) {
-            if (currentRow[i] == second) {
-                currentRow[i] = first;
+        for (int i = 0; i < this.currentRow.length; i++) {
+            if (this.currentRow[i] == second) {
+                this.currentRow[i] = first;
                 this.setsMembers[first]++;
                 this.setsMembers[second]--;
             }
         }
         this.availables[second] = true;
-        free++;
+        this.free++;
     }
 
     /**
@@ -175,19 +174,19 @@ public class EllersAlgo {
      * @param rownr to keep track of the number of rows.
      */
     public void completeRow(int rownr) {
-        if (rownr > rows) {
+        if (rownr > this.rows) {
             return;
         }
-        for (int i = 0; i < walls.length; i++) {
-            if (walls[i]) {
+        for (int i = 0; i < this.walls.length; i++) {
+            if (this.walls[i]) {
                 continue;
-            } else if (!walls[i] && rownr == rows && i % 2 == 0) {
+            } else if (!this.walls[i] && rownr == this.rows && i % 2 == 0) {
                 continue;
             } else {
-                maze.carve(i + 1, rownr);
+                this.maze.carve(i + 1, rownr);
             }
         }
-        if (rownr == rows) {
+        if (rownr == this.rows) {
             return;
         }
         this.prepareNextRow(rownr + 1);
@@ -202,18 +201,18 @@ public class EllersAlgo {
      * @param rownr for keeping track of the row number.
      */
     public void prepareNextRow(int rownr) {
-        for (int i = 0; i < walls.length; i++) {
+        for (int i = 0; i < this.walls.length; i++) {
             if (i % 2 != 0) {
-                walls[i] = false;         
-            } else if (i % 2 == 0 && walls[i]) {
-                int id = currentRow[i / 2];
+                this.walls[i] = false;         
+            } else if (i % 2 == 0 && this.walls[i]) {
+                int id = this.currentRow[i / 2];
                 this.setsMembers[id]--;
-                currentRow[i / 2] = 0;            
-                walls[i] = false;               
+                this.currentRow[i / 2] = 0;            
+                this.walls[i] = false;               
             }
         }
 
-        generateRow(rownr);
+        this.generateRow(rownr);
 
     }
 
@@ -225,7 +224,7 @@ public class EllersAlgo {
      * Starts from row 1.
      */
     public void start() {
-        generateRow(1);
+        this.generateRow(1);
     }
 
     /**
@@ -239,7 +238,7 @@ public class EllersAlgo {
             if (this.availables[i]) {
                 freeset = i;
                 this.availables[i] = false;
-                free--;
+                this.free--;
                 return freeset;
             }
         }
@@ -270,4 +269,5 @@ public class EllersAlgo {
     public Maze getMaze() {
         return this.maze;
     }
+    
 }

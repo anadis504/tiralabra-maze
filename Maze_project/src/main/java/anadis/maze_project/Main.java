@@ -23,7 +23,8 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        IndexTree it = new IndexTree(4,5);
+        WilsonsAlgo willi = new WilsonsAlgo(50,50);
+        willi.start();
         UI ui = new UI();
 
         ui.run();
