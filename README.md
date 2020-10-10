@@ -17,3 +17,5 @@
 [Week report 5](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/WeekReport5.md)
 
 [Week report 6](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/WeekReport6.md)
+
+![Pit-report](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/graph/pit-report202010101951.png)
