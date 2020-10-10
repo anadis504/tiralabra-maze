@@ -76,7 +76,6 @@ public class TestMaze {
         char[][] grid1 = maze.getGrid();
         maze.carve(-1, 0);
         char[][] grid2 = maze.getGrid();
-        maze.printMaze();
         assertEquals("Carved outside grids index", grid1, grid2);
     }
 }

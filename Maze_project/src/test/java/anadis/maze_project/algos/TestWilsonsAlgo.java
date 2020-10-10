@@ -52,7 +52,6 @@ public class TestWilsonsAlgo {
     @Test
     public void testOne() {
         WilsonsAlgo willy = new WilsonsAlgo(1, 1);
-        willy.getMaze().printMaze();
         assertEquals(1, willy.gerCols());
         assertEquals(1, willy.getRows());
     }
@@ -66,4 +65,11 @@ public class TestWilsonsAlgo {
         assertEquals(1, willyC.gerCols());
         assertEquals(true, trR.getSolved());
     }
+
+//    @Test
+//    public void testBiggestMaze() {
+//        WilsonsAlgo willy = new WilsonsAlgo(100, 100);
+//        TremauxSolve tremso = new TremauxSolve(willy.getGrid(), 1, 1, 100, 100);
+//        assertEquals(true, tremso.getSolved());
+//    }
 }

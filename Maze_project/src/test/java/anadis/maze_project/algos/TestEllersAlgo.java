@@ -58,5 +58,21 @@ public class TestEllersAlgo {
         assertEquals("Last row concists of more than one set", set1, set2);
         assertEquals("The amount of sets not correct", 99, freeSets);
     }
+
+    @Test
+    public void testOneRow() {
+        EllersAlgo ea = new EllersAlgo(1, 100);
+        TremauxSolve t = new TremauxSolve(ea.getMaze().getGrid(), 1, 1, 1, 100);
+        assertEquals(true,t.getSolved());
+    }
     
+    @Test
+    public void testLastRowSameSet() {
+        EllersAlgo ela = new EllersAlgo(50,50);
+        int[] row = ela.getCurrentRow();
+        for (int i = 1; i < row.length; i++) {
+            assertEquals(row[i], row[i-1]);
+        }
+    }
+
 }
