@@ -20,6 +20,9 @@ Because the algorithm generates the maze one row at a time it only needs to keep
 
 ## Sources
 [Think Labyrinthm](http://www.astrolog.org/labyrnth/algrithm.htm)
+
 [Wilson's algorithm](http://people.cs.ksu.edu/~ashley78/wiki.ashleycoleman.me/index.php/Wilson's_Algorithm.html)
+
 [James Buck blog on Wilson's algorithm](http://weblog.jamisbuck.org/2011/1/20/maze-generation-wilson-s-algorithm.html)
+
 [Neocomputer on Eller's Alforithm](http://www.neocomputer.org/projects/eller.html)
