@@ -8,6 +8,8 @@
 
 [Testing](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Testing.md)
 
+[Week report 1](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/WeekReport1.md)
+
 [Week report 2](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/WeekReport2.md)
 
 [Week report 3](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/WeekReport3.md "3rd week report")
