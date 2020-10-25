@@ -10,7 +10,7 @@ Maze generating and solving application based on Wilson's and Eller's maze gener
 
 [User Guide](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/User_guide.md)
 
-[Testing](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Testing.md)
+[Testing Document](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Testing.md)
 
 ## Week reports
 
