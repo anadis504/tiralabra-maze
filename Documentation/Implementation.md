@@ -52,3 +52,7 @@ WilsonsAlgo(rows, columns)
 ## 4. Class TremauxSolve
 
 Solves the generated maze by Tremaux solving method in O(nm) time and O(nm) space. Chooses an available direction at random and marks the once. If a dead end is encountered the algorithm backtracks until finding an unmarked passage it can take marking the dead-end path twice. Since the mazes generated in this application are perfect (without loops and isolated areas) the solving algorithm does not actually need to be concerned about encountering a path it has marked once before. When reaching the finish coordinates the path that has been marked only once is the solution path. The algorithm print the solution to the screen.
+
+## 5. Class IndexTree
+
+A segment tree data structure to speed up Wilson's algorithm's search for available indexes when initiating a new loop-erased random walk. Works in O(log n) time and O(n) space.
