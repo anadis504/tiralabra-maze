@@ -19,7 +19,7 @@ Eller's algorithm creates the Maze one row at a time, where once a row has been 
 Because the algorithm generates the maze one row at a time it only needs to keep the current row in memory making the space complexity O(n) where n is the number of cells in the row. Time complexity is O(n²m) where m is the amount of rows in the maze.
 
 ## Trémaux's solving algorithm
-Is a maze solving method that will find a solution for all types of mazes. Based on the technique a real person would use inside the maze.
+Is a maze solving method that will find a solution for all types of mazes. Based on the technique a real person would use inside the maze. Walkes through the maze marking the path once. When encountering a crossing passage chooses the path that is unmarked or goes back marking the path twice. When arriving at the finish coordinates the solution itś the path that has been marked only once. Visits each cell at most twice, if even: working in time and space O(n*m).
 
 ## Sources
 [Think Labyrinthm](http://www.astrolog.org/labyrnth/algrithm.htm)
