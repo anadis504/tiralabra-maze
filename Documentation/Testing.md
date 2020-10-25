@@ -1,4 +1,4 @@
-# Testing document
+# Testing Document
 
 The classes are covered by unit tests. Test coverage:
 
