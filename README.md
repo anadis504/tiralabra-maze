@@ -1,12 +1,18 @@
 # tiralabra-maze
 
+Maze generating and solving application based on Wilson's and Eller's maze generating algorithms and Tremaux solving algorithm.
+
+## Documentation
+
 [Project Specification](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Project_Specification.md)
 
-[Implementation document](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Implementation.md)
+[Implementation Document](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Implementation.md)
 
 [User Guide](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/User_guide.md)
 
 [Testing](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/Testing.md)
+
+## Week reports
 
 [Week report 1](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/WeekReport1.md)
 
@@ -20,4 +26,3 @@
 
 [Week report 6](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/WeekReport6.md)
 
-![Pit-report](https://github.com/anadis504/tiralabra-maze/blob/master/Documentation/graph/pit-report202010101951.png)
