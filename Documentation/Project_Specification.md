@@ -11,7 +11,8 @@ A char-table filled with walls works as a maze template for both generation algo
 ## Wilson’s Algorithm
 Wilson’s algorithm is based on the idea of loop-erased random walks, which means that as it goes, if the path it is forming happens to intersect with itself and form a loop, it erases that loop before continuing on. The algorithm starts by randomly choosing a point on the grid and marking it visited. Then it chooses any unvisited cell in the grid and does a loop-erased random walk until it encounters a visited cell. At that point it goes back to the chosen starting cell and carves the path it has made by adding it to the maze, marking each cell along the path as visited. The process repeats until all the cells in the grid have been visited.
 
-Takes advantage of an index segment tree for finding the next available starting cell for the walk in O(log n) time. The maze generation works in O(n³) time and O(n*m) space, but generates relatively small mazes compared to Eller's method due to memory limitation. In this way the generating of the maze does not get to feel slow.
+## Segment tree
+Wilson's Algo takes advantage of an index segment tree data structure for finding the next available starting cell for the walk in O(log n) time. The maze generation works in O(n³) time and O(n*m) space, but generates relatively small mazes compared to Eller's method due to memory limitation. In this way the generating of the maze does not get to feel slow.
 
 ## Eller's Algorithm
 Eller's algorithm creates the Maze one row at a time, where once a row has been generated, the algorithm no longer looks at it. Each cell in a row is contained in a set, where two cells are in the same set if there's a path between them through the part of the Maze that's been made so far. This information allows passages to be carved in the current row without creating loops or isolations. 
