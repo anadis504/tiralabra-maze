@@ -6,14 +6,27 @@
 package anadis.maze_project.utils;
 
 /**
- *
- * @author anadis
+ * Index segment tree for keeping track of available indexes.
+ * <p>
+ * A data structure based on a segment tree that supports index removal for a
+ * given 2 dimensional table in O(log n) time and O(n) space.
+ * </p>
  */
 public class IndexTree {
 
     private int[] tree;
     private int size, rows, cols, start;
 
+    /**
+     * Index segment tree for keeping track of available indexes.
+     * <p>
+     * A data structure based on a segment tree that supports index removal for
+     * a given 2 dimensional array in O(log n) time and O(n) space.
+     * </p>
+     *
+     * @param rows amount of rows in the 2 dimensional array.
+     * @param cols amount of columns in the 2 dimensional array.
+     */
     public IndexTree(int rows, int cols) {
         this.size = rows * cols;
         this.cols = cols;
@@ -34,6 +47,14 @@ public class IndexTree {
         }
     }
 
+    /**
+     * Checks if the given coordinate is available and if not returns the 
+     * closest available cell.
+     * 
+     * @param r row coordinate
+     * @param c column coordinate
+     * @return coordinates of available cell
+     */
     public int[] getFreeIndex(int r, int c) {
         int[] cell = new int[2];
         cell[0] = r;
@@ -68,6 +89,12 @@ public class IndexTree {
         return cell;
     }
 
+    /**
+     * Marks the given cell of the grid as unavailable.
+     * 
+     * @param r
+     * @param c 
+     */
     public void markVisited(int r, int c) {
         int index = (r - 1) * this.cols + c - 1;
         index += start;

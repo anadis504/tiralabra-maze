@@ -100,7 +100,8 @@ public class WilsonsAlgo {
     }
 
     /**
-     * 
+     * Carves the finished path in the Maze object by walking the path again and
+     * converting the coordinates to fit the Maze object.
      */
     public void carvePath() {
         while (!visited[this.x][this.y]) {
@@ -132,9 +133,9 @@ public class WilsonsAlgo {
     }
 
     /**
-     * Calls for available directions and chooses one of the available 
+     * Asks for available directions and chooses one of the available 
      * directions at random.
-     * Coordinates in the maze:
+     * Coordinates in the maze as parameters.
      * 
      * @param nx row number 
      * @param ny column number
