@@ -25,42 +25,46 @@ public class UI {
     private static final String[] commands = {"Welcome to the maze-generation!",
         "Would you like to generate a perfect maze?", "Here are your options:",
         "(1) Generate labyrinth by Eller's Algorithm", "(2) Generate labyrinth "
-        + "by Wilson's Algoritm", "(3) Solve maze", "Number of rows: ",
-        "Number of columns: ", "(-1) Quit"
+        + "by Wilson's Algoritm", "(3) Solve maze", "(9) Run performance tests",
+        "Number of rows: ", "Number of columns: ", "(-1) Quit"
     };
     boolean mazeGenerated = false;
     private Maze maze;
     private int[] proportions = new int[2];
+    private PerformanceTester pt = new PerformanceTester();
 
     public UI() {
 
     }
 
     public void run() {
+        System.out.println("\n------------------------------------\n");
         for (int i = 0; i < 2; i++) {
             System.out.println(commands[i]);
         }
 
         while (true) {
-            for (int i = 2; i < 6; i++) {
+            
+            System.out.println("\n------------------------------------\n");
+            for (int i = 2; i < 7; i++) {
                 System.out.println(commands[i]);
             }
             System.out.println(commands[commands.length - 1]);
 
             int opt = Integer.valueOf(reader.nextLine());
             if (opt > 0 && opt < 3) {
-                System.out.print(commands[6]);
+                System.out.print(commands[7]);
                 int r = Integer.valueOf(reader.nextLine());
                 while (r < 0) {
                     System.out.println(errors[0]);
-                    System.out.print(commands[6]);
+                    System.out.print(commands[7]);
                     r = Integer.valueOf(reader.nextLine());
                 }
-                System.out.print(commands[7]);
+                System.out.print(commands[8]);
                 int c = Integer.valueOf(reader.nextLine());
                 while (c < 0) {
                     System.out.println(errors[0]);
-                    System.out.print(commands[7]);
+                    System.out.print(commands[8]);
                     c = Integer.valueOf(reader.nextLine());
                 }
 
@@ -112,9 +116,18 @@ public class UI {
                 t.printSolution();
                 System.out.println("");
             }
+            
             if (opt == -1) {
                 break;
             }
+            
+            if (opt == 9) {
+                PerformanceTester pt = new PerformanceTester();
+                System.out.println("\nRunning tests...\n");
+                pt.run();
+                System.out.println(pt.toString());
+            }
+            
         }
     }
 
@@ -126,4 +139,6 @@ public class UI {
             this.maze = new WilsonsAlgo(r, c).getMaze();
         }
     }
+    
+    
 }
