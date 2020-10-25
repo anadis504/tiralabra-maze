@@ -2,11 +2,11 @@
 
 ## 1. Class Maze
 
-Generates a n*m (where n = number of columns, m = number of rows) maze full of walls for the two algorithms to carve passages through. Data structure is a char-table. Two methods are provided, one for carving in given position, one for printing the maze. Works in O(n*m) time and o(n*m) space.
+Generates a nm (where n = number of columns, m = number of rows) maze full of walls for the two algorithms to carve passages through. Data structure is a char-table. Two methods are provided, one for carving in given position, one for printing the maze. Works in O(nm) time and o(nm) space.
 
 ## 2. Class EllersAlgo
 
-Generates a perfect maze (n²*m) using Eller’s algorithm. The algorithm generates one row at a time keeeping track of sets of cells to avoid loops and isolated areas. It only needs to keep the current row in memory making the space complexity O(n) where n is the number of cells in the row. Data structures are array tables.
+Generates a perfect maze (n²m) using Eller’s algorithm. The algorithm generates one row at a time keeeping track of sets of cells to avoid loops and isolated areas. It only needs to keep the current row in memory making the space complexity O(n) where n is the number of cells in the row. Data structures are array tables.
 
 Constructor:
 EllersAlgo(rows, column)
@@ -32,7 +32,7 @@ The proceedure is repeated m times, where m is the amount of rows in the maze.
 
 ## 3. Class WilsonAlgo
 
-Generates a perfect maze using Wilson's algorithm based on looperased random walks. Starts by randomly picking a cell on the grid and marking it visited. Rnadomly chooses another cell and starts a loop-erased random walk. Once arrivind at a visited cell carves the path of the walk marking cells on the path as visited. Time O(n³), space O(n*m).
+Generates a perfect maze using Wilson's algorithm based on looperased random walks. Starts by randomly picking a cell on the grid and marking it visited. Rnadomly chooses another cell and starts a loop-erased random walk. Once arrivind at a visited cell carves the path of the walk marking cells on the path as visited. Time O(n³), space O(nm).
 
 Constructor:
 WilsonsAlgo(rows, columns)
@@ -42,13 +42,13 @@ WilsonsAlgo(rows, columns)
 * randomly chooses an unvisited cell from the grid. Takes advantage of the IndexTree class to find the next free cell in O(log n) time.
 
 2. randomWalk()
-* Makes a loop-erased random walk until meeting a visited cell. The earliest walks will take the longest time to find the few visited cells. The later walk will be significantly faster. Because of the random factor of this method the time complexity is very difficult to estimate. In theory it can make infinitely many loops which it erases before the walk is over, covering much of the grid. As the maximum size of the grid is approximately 110x110 because of memory restrictions the probability that it will find the visited area before covering the whole grid n times grows as the visited area expands. Ruff complexity limit O(n³) time and O(n*m) space. 
+* Makes a loop-erased random walk until meeting a visited cell. The earliest walks will take the longest time to find the few visited cells. The later walk will be significantly faster. Because of the random factor of this method the time complexity is very difficult to estimate. In theory it can make infinitely many loops which it erases before the walk is over, covering much of the grid. As the maximum size of the grid is approximately 110x110 because of memory restrictions the probability that it will find the visited area before covering the whole grid n times grows as the visited area expands. Ruff complexity limit O(n³) time and O(nm) space. 
 * Calls on methods chooseDir(), which calls on method ifBorder() both working in constant time.
 
 3. carvePath()
-* Carves the path in the Maze template and marks the cells from the path visited. Time during the whole maze generation O(n*m)
+* Carves the path in the Maze template and marks the cells from the path visited. Time during the whole maze generation O(nm)
 
 
 ## 4. Class TremauxSolve
 
-Solves the generated maze by Tremaux solving method
+Solves the generated maze by Tremaux solving method.
